@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cpuiu <cpuiu@student.42.fr>                +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/04 17:55:28 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/01/30 19:44:20 by cpuiu            ###   ########.fr       */
+/*   Updated: 2024/09/09 16:01:51 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,4 +76,6 @@ char	*ft_strnew(size_t size);
 void	*ft_memalloc(size_t size);
 char	*ft_strncpy(char *dest, const char *src, size_t n);
 char	*ft_strndup(const char *s1, int len);
+int		ft_isspace(char c);
+
 #endif
