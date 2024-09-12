@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:52:08 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/09 16:25:21 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/10 19:07:33 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	terminate(t_game *game)
 	free_textures(game);
 	free_game(game);
 	if (game->my_error != NULL)
+	{
+		write(STDERR_FILENO, "Error: ", 7);
 		write(STDERR_FILENO, game->my_error, ft_strlen(game->my_error));
+	}
 	else if (mlx_errno != 0)
 		ft_mlx_error();
 	else if (errno != 0)

@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:11 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/09 19:17:25 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/12 23:37:52 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,40 +20,54 @@ bool	is_color(char *line)
 	return (false);
 }
 
-void	set_hex_value(t_game *game, int nbr, char c)
+int	add_color(t_game *game, int nbr, char c)
 {
+	static int 	rgb[3] = {-1, -1, -1};
 	static int	i = 0;
-	static int	red = -1;
-	static int	green = -1;
-	static int	blue = -1;
 
-	// printf("Start: C_Hex: 0x%06lX\n", game->textures->ceiling_hex);
-	// printf("Start: F_Hex: 0x%06lX\n", game->textures->floor_hex);
-	// printf("%d\n", i);
 	if (i == 0)
-		red = nbr;
+		rgb[0] = nbr;
 	else if (i == 1)
-		green = nbr;
+		rgb[1] = nbr;
 	else if (i == 2)
-		blue = nbr;
-	else
 	{
+		rgb[2] = nbr;
 		if (c == 'F')
-			game->textures->floor_hex = (red << 16) | (green << 8) | blue;
+			game->textures->floor_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 		else if (c == 'C')
-			game->textures->ceiling_hex = (red << 16) | (green << 8) | blue;
-		printf("C_Hex: %06lX\n", game->textures->ceiling_hex);
-		printf("F_Hex: %06lX\n", game->textures->floor_hex);
+			game->textures->ceiling_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+		i = 0;
+		rgb[0] = -1;
+		rgb[1] = -1;
+		rgb[2] = -1;
+		return (1);
 	}
 	i++;
-	// printf("%d\n", i);
+	return (0);
 }
+int		check_number(t_game *game, char *line, int i, int start)
+{
+	char	*str_nbr;
+	int		status;
 
+	str_nbr = ft_substr(line, start, i - start);
+	if (!str_nbr)
+		terminate(game);
+	if (ft_strlen(str_nbr) > 3 || ft_atoi(str_nbr) > 255)
+	{
+		free(str_nbr);
+		game->my_error = "Number has to be between 0 and 255\n";
+		terminate(game);
+	}
+	status = add_color(game, ft_atoi(str_nbr), line[0]);
+	free (str_nbr);
+	return (status);
+}
 void	check_color(t_game *game, char *line)
 {
+	int		status;
 	size_t	i;
 	size_t	start;
-	char	*str_nbr;
 
 	i = 2;
 	while (line[i])
@@ -63,19 +77,16 @@ void	check_color(t_game *game, char *line)
 		start = i;
 		while (ft_isdigit(line[i]))
 			i++;
-		str_nbr = ft_substr(line, start, i - start);
-		printf("%s\n", str_nbr);
-		if (ft_strlen(str_nbr) > 3
-			|| (ft_strcmp(str_nbr, "255") > 0 && ft_strlen(str_nbr) == 3))
+		status = check_number(game, line, i, start);
+		if (status == 1 && line[i] == '\0')
 			return ;
-		printf("I was here\n");
-		set_hex_value(game, ft_atoi(str_nbr), line[0]);
-		free (str_nbr);
 		while (ft_isspace(line[i]))
 			i++;
-		if (line[i] && line[i] != ',')
-			return ;
+		if ((status == 1 && line[i] != '\0') || (line[i] && line[i] != ','))
+		{
+			game->my_error = "Color does not match pattern: 'C/F r,g,b'\n";
+			terminate(game);
+		}
 		i++;
 	}
-	set_hex_value(game, 0, line[0]);
 }

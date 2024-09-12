@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 16:37:49 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/09 18:44:10 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/10 19:09:06 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	check_input(t_game *game, int argc, char **argv)
 
 	if (argc != 2)
 	{
-		game->my_error = "Error: Input has to be: \"./cub3d <map.cub>\"\n";
+		game->my_error = "Input has to be: \"./cub3d <map.cub>\"\n";
 		terminate(game);
 	}
 	len = ft_strlen(argv[1]);
 	if (len <= 4 || ft_strcmp(argv[1] + len - 4, ".cub") != 0)
 	{
-		game->my_error = "Error: Input file has to be \".cub\"\n";
+		game->my_error = "Input file has to be \".cub\"\n";
 		terminate(game);
 	}
 }
