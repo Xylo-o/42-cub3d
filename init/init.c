@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 11:43:55 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:21:18 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,6 @@ void	init_ray(t_ray *ray)
 	ray->y_max = 0;
 }
 
-void	init_paths(t_paths *paths)
-{
-	paths->no_path = "./textures/pics/bluestone.png";
-	paths->so_path = "./textures/pics/greystone.png";
-	paths->we_path = "./textures/pics/purplestone.png";
-	paths->ea_path = "./textures/pics/redbrick.png";
-}
-
 int	init(t_game *game)
 {
 	if (!game)
@@ -79,10 +71,6 @@ int	init(t_game *game)
 	if (!game->ray)
 		return (1);
 	init_ray(game->ray);
-	game->paths = (t_paths *)malloc(sizeof(t_paths));
-	if (!game->paths)
-		return (1);
-	init_paths(game->paths);
 	game->textures = (t_textures *)malloc(sizeof(t_textures));
 	if (!game->textures)
 		return (1);

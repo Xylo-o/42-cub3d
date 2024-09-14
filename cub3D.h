@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 11:44:15 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:25:02 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 #define tex_width 64
 #define tex_height 64
 #define screen_h 1200
-#define screen_w 1200
+#define screen_w 1600
 
 typedef struct s_view
 {
@@ -81,8 +81,8 @@ typedef struct s_textures
 	mlx_texture_t	*ea_texture;
 	mlx_texture_t	*tmp;
 	uint32_t		*color;
-	long			ceiling_hex;
-	long			floor_hex;
+	long			ceiling_color;
+	long			floor_color;
 	double			wall_x;
 	int				x_tex;
 	int				y_tex;
