@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 12:25:02 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:40:08 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ void				init_view(t_view *view);
 void				init_paths(t_paths *paths);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
+void				load_textures(t_game *game);
 int					init(t_game *game);
 
 // RENDER
@@ -130,15 +131,3 @@ void				calculate_hit(t_game *game);
 void				calculate_ray(t_game *game);
 int					calculate_draw_end(int wall_height);
 int					calculate_draw_start(int wall_height);
-
-// TEXTURES
-void				load_textures(t_game *game);
-
-// UTILS
-double				ft_factorial(double n);
-double				ft_power(double n, double x);
-double				ft_cos(double n);
-double				ft_sin(double n);
-double				ft_abs(double n);
-void 				get_texture(t_game *game, int x, int y);
-void				get_color(t_game *game, mlx_texture_t *texture, int x, int y);

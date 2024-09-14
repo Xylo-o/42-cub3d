@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:35:20 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/07/30 15:34:56 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:41:06 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ void	calculate_delta(t_game *game)
 	if (game->ray->dir_x == 0)
 		game->ray->delta_dist_x = 1e30;
 	else
-		game->ray->delta_dist_x = ft_abs(1 / game->ray->dir_x);
+		game->ray->delta_dist_x = fabs(1 / game->ray->dir_x);
 	if (game->ray->dir_y == 0)
 		game->ray->delta_dist_y = 1e30;
 	else
-		game->ray->delta_dist_y = ft_abs(1 / game->ray->dir_y);
+		game->ray->delta_dist_y = fabs(1 / game->ray->dir_y);
 }
 
 void	calculate_pos(t_game *game)

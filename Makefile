@@ -20,17 +20,13 @@ LIBFT_SRC := Libft/ft_memset.c Libft/ft_strcmp.c Libft/ft_strdel.c Libft/ft_strd
 
 NEW_SRC := cub3D.c \
 		maps/map.c \
-		controls/key_control1.c \
-		controls/key_control2.c \
-		utils/utils1.c \
+		init/init.c \
 		render/raycast1.c \
 		render/raycast2.c \
 		render/raycast3.c \
-		init/init.c \
-		utils/utils2.c \
-		textures/textures.c \
-
-# NEW_SRC := test.c
+		controls/key_control1.c \
+		controls/key_control2.c \
+		utils/utils1.c \
 
 OBJ := $(GNL_SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(NEW_SRC:.c=.o)
 

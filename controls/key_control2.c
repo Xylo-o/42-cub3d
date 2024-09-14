@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:51:24 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/08/02 12:55:07 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 12:38:34 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,15 @@ void	case_key_left(t_game *game, double rot_speed, double old_dir_x,
 			MLX_KEY_A))
 	{
 		old_dir_x = game->view->dir_x;
-		game->view->dir_x = game->view->dir_x * ft_cos(-rot_speed)
-			- game->view->dir_y * ft_sin(-rot_speed);
-		game->view->dir_y = old_dir_x * ft_sin(-rot_speed) + game->view->dir_y
-			* ft_cos(-rot_speed);
+		game->view->dir_x = game->view->dir_x * cos(-rot_speed)
+			- game->view->dir_y * sin(-rot_speed);
+		game->view->dir_y = old_dir_x * sin(-rot_speed) + game->view->dir_y
+			* cos(-rot_speed);
 		old_cam_x = game->view->cam_x;
-		game->view->cam_x = game->view->cam_x * ft_cos(-rot_speed)
-			- game->view->cam_y * ft_sin(-rot_speed);
-		game->view->cam_y = old_cam_x * ft_sin(-rot_speed) + game->view->cam_y
-			* ft_cos(-rot_speed);
+		game->view->cam_x = game->view->cam_x * cos(-rot_speed)
+			- game->view->cam_y * sin(-rot_speed);
+		game->view->cam_y = old_cam_x * sin(-rot_speed) + game->view->cam_y
+			* cos(-rot_speed);
 	}
 }
 
@@ -77,14 +77,14 @@ void	case_key_right(t_game *game, double rot_speed, double old_dir_x,
 			MLX_KEY_D))
 	{
 		old_dir_x = game->view->dir_x;
-		game->view->dir_x = game->view->dir_x * ft_cos(rot_speed)
-			- game->view->dir_y * ft_sin(rot_speed);
-		game->view->dir_y = old_dir_x * ft_sin(rot_speed) + game->view->dir_y
-			* ft_cos(rot_speed);
+		game->view->dir_x = game->view->dir_x * cos(rot_speed)
+			- game->view->dir_y * sin(rot_speed);
+		game->view->dir_y = old_dir_x * sin(rot_speed) + game->view->dir_y
+			* cos(rot_speed);
 		old_cam_x = game->view->cam_x;
-		game->view->cam_x = game->view->cam_x * ft_cos(rot_speed)
-			- game->view->cam_y * ft_sin(rot_speed);
-		game->view->cam_y = old_cam_x * ft_sin(rot_speed) + game->view->cam_y
-			* ft_cos(rot_speed);
+		game->view->cam_x = game->view->cam_x * cos(rot_speed)
+			- game->view->cam_y * sin(rot_speed);
+		game->view->cam_y = old_cam_x * sin(rot_speed) + game->view->cam_y
+			* cos(rot_speed);
 	}
 }
