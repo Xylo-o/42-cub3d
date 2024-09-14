@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 12:40:08 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:37:30 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,16 +103,17 @@ typedef struct s_game
 // CONTROLS
 void				key_binds(void *param);
 void				case_esc(t_game *game);
-void				case_key_down(t_game *game, double mv_speed);
-void				case_key_up(t_game *game, double mv_speed);
-void				case_key_left(t_game *game, double rot_speed,
+void				case_key_back(t_game *game, double mv_speed);
+void				case_key_forward(t_game *game, double mv_speed);
+void				case_key_rot_left(t_game *game, double rot_speed,
 						double old_dir_x, double old_cam_x);
-void				case_key_right(t_game *game, double rot_speed,
+void				case_key_rot_right(t_game *game, double rot_speed,
 						double old_dir_x, double old_cam_x);
+void 				case_key_left(t_game *game, double mv_speed);
+void 				case_key_right(t_game *game, double mv_speed);
 
 // INIT
 void				init_view(t_view *view);
-void				init_paths(t_paths *paths);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
 void				load_textures(t_game *game);

@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 12:57:46 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/08/02 09:51:01 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:39:39 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,27 @@
 
 extern int	worldMap[][mapHeight];
 
-void	key_binds(void *param)
+void key_binds(void *param)
 {
-	t_game	*game;
-	double	old_dir_x;
-	double	old_cam_x;
-	double	mv_speed;
-	double	rot_speed;
+	t_game *game;
+	double mv_speed;
+	double rot_speed;
 
 	game = (t_game *)param;
-	old_dir_x = 0.0;
-	old_cam_x = 0.0;
-	mv_speed = 0.1;
+	mv_speed = 0.06;
 	rot_speed = 0.05;
 	put_image(game);
-	case_key_up(game, mv_speed);
-	case_key_down(game, mv_speed);
-	case_key_left(game, rot_speed, old_dir_x, old_cam_x);
-	case_key_right(game, rot_speed, old_dir_x, old_cam_x);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_W))
+		case_key_forward(game, mv_speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_S))
+		case_key_back(game, mv_speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_A))
+		case_key_left(game, mv_speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_D))
+		case_key_right(game, mv_speed);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_LEFT))
+		case_key_rot_left(game, rot_speed, 0.0, 0.0);
+	if (mlx_is_key_down(game->mlx, MLX_KEY_RIGHT))
+		case_key_rot_right(game, rot_speed, 0.0, 0.0);
 	case_esc(game);
 }

@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 12:30:04 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 14:40:54 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,14 +95,18 @@ void	draw_ceiling(t_game *game, int x, int draw_start)
 	}
 }
 
-void	draw_floor(t_game *game, int x, int draw_end)
+void draw_floor(t_game *game, int x, int draw_end)
 {
-	int	y;
+	int y;
+
+	if (draw_end < 0 || draw_end >= screen_h - 1)
+		return ;
 
 	y = draw_end + 1;
 	while (y < screen_h)
 	{
-		mlx_put_pixel(game->buffer, x, y, FLOOR_COLOR);
+		if (x >= 0 && x < screen_w)
+			mlx_put_pixel(game->buffer, x, y, FLOOR_COLOR);
 		y++;
 	}
 }

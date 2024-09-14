@@ -1,7 +1,7 @@
 NAME := cub3D
 CC := gcc
 FRAMEWORKS := MLX/libmlx42.a -lglfw -framework Cocoa -framework OpenGL -framework IOKit
-FLAGS := -Wall -Wextra -Werror -g -fsanitize=address -Iincludes -Imlx
+FLAGS := -Wall -Wextra -Werror  -Iincludes -Imlx
 
 # PARSING_SRC := parsing/data_parsing.c parsing/file_data.c parsing/file_extension.c parsing/file_parser.c\
 # 				parsing/textures_parsing.c 
