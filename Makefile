@@ -1,12 +1,7 @@
 NAME := cub3D
-
 CC := gcc
-
 FRAMEWORKS := MLX/libmlx42.a -lglfw -framework Cocoa -framework OpenGL -framework IOKit
-
-FLAGS := -Wall -Wextra -Werror -g -fsanitize=address
-
-INCLUDE := -Iincludes -Imlx
+FLAGS := -Wall -Wextra -Werror -g -fsanitize=address -Iincludes -Imlx
 
 # PARSING_SRC := parsing/data_parsing.c parsing/file_data.c parsing/file_extension.c parsing/file_parser.c\
 # 				parsing/textures_parsing.c 
@@ -18,7 +13,7 @@ LIBFT_SRC := Libft/ft_memset.c Libft/ft_strcmp.c Libft/ft_strdel.c Libft/ft_strd
 			Libft/ft_strchr.c Libft/ft_strncpy.c  Libft/ft_strlcat.c Libft/ft_strndup.c Libft/ft_memalloc.c\
 			Libft/ft_strsub.c Libft/ft_strlcpy.c
 
-NEW_SRC := cub3D.c \
+SRC := cub3D.c \
 		maps/map.c \
 		init/init.c \
 		render/raycast1.c \
@@ -28,27 +23,35 @@ NEW_SRC := cub3D.c \
 		controls/key_control2.c \
 		utils/utils1.c \
 
-OBJ := $(GNL_SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(NEW_SRC:.c=.o)
+OBJDIR := obj/
 
-all: $(NAME)
+OBJ := $(addprefix $(OBJDIR),$(GNL_SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(SRC:.c=.o))
+
+$(OBJDIR)%.o: %.c
+	@mkdir -p $(@D)
+	@$(CC) $(FLAGS) -c $< -o $@
+
+all: start_compile $(NAME)
 
 bonus: all
 
 start_compile:
-	@echo "Compiling..."
+	@echo "$(BLUE)Compiling...$(NC)"
 
 $(NAME) : $(OBJ)
-	$(CC) $(FLAGS) $(INCLUDE) $^ $(FRAMEWORKS) -o $@
+	@$(CC) $(FLAGS) $^ $(FRAMEWORKS) -o $@
 	@echo "$(GREEN)Compiled successfully$(NC)"
 
 %.o: %.c
-	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
+	@$(CC) $(FLAGS) -c $< -o $@
 
 clean :
-	@find . -name "*.o" -type f -delete
+	@rm -rf $(OBJDIR)
+	@echo "$(GRAY)Object files cleaned$(NC)"
 
-fclean : clean
-	@rm -rf $(NAME)
+fclean :
+	@rm -rf $(NAME) $(OBJDIR)
+	@echo "$(RED)Program files cleaned$(NC)"
 
 re : fclean all
 
@@ -56,4 +59,6 @@ re : fclean all
 
 GREEN := \033[0;32m
 BLUE := \033[0;34m
+GRAY := \033[0;30m
+RED := \033[0;31m
 NC := \033[0m
