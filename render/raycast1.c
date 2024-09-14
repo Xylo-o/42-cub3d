@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/04 15:54:24 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:46:53 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	render_structures(t_game *game)
 		draw_start = calculate_draw_start(wall_height);
 		draw_end = calculate_draw_end(wall_height);
 		draw_ceiling(game, x, draw_start);
-		draw_walls(game, x, draw_start, draw_end);
+		draw_walls(game, x, draw_start, draw_end, wall_height);
 		draw_floor(game, x, draw_end);
 		x++;
 	}
@@ -51,17 +51,33 @@ void	put_image(t_game *game)
 	mlx_image_to_window(game->mlx, game->buffer, 0, 0);
 }
 
-void	draw_walls(t_game *game, int x, int draw_start, int draw_end)
+void	draw_walls(t_game *game, int x, int draw_start, int draw_end, int wall_height)
 {
-	int	y;
+	int y;
 
+	y = 0;
+    if (game->map->side == 0 && game->ray->dir_x > 0)
+		game->textures->tmp = game->textures->no_texture;
+    else if (game->map->side == 0 && game->ray->dir_x < 0)
+		game->textures->tmp = game->textures->so_texture;
+    else if (game->map->side == 1 && game->ray->dir_y > 0)
+		game->textures->tmp = game->textures->we_texture;
+    else
+		game->textures->tmp = game->textures->ea_texture;
+    if (game->map->side == 0) game->textures->wall_x = game->view->pos_y + game->ray->dist * game->ray->dir_y;
+    else game->textures->wall_x = game->view->pos_x + game->ray->dist * game->ray->dir_x;
+    game->textures->wall_x -= floor(game->textures->wall_x);
+    game->textures->x_tex = (int)(game->textures->wall_x * (double)tex_width);
+    if (game->map->side == 0 && game->ray->dir_x > 0) game->textures->x_tex = tex_width - game->textures->x_tex - 1;
+    if (game->map->side == 1 && game->ray->dir_y < 0) game->textures->x_tex = tex_width - game->textures->x_tex - 1;
 	y = draw_start;
 	while (y < draw_end)
 	{
-		get_texture(game, x, y);
-		mlx_put_pixel(game->buffer, x, y, game->map->color);
+        game->textures->y_tex = (((y * 256 - screen_h * 128 + wall_height * 128) * tex_height) / wall_height) / 256;
+        uint32_t color = *(uint32_t*)(game->textures->tmp->pixels + (game->textures->y_tex * tex_width + game->textures->x_tex) * sizeof(uint32_t));
+        mlx_put_pixel(game->buffer, x, y, color);
 		y++;
-	}
+    }
 }
 
 void	draw_ceiling(t_game *game, int x, int draw_start)
@@ -88,7 +104,7 @@ void	draw_floor(t_game *game, int x, int draw_end)
 	}
 }
 
-uint32_t texture[4][tex_width * tex_height];
+// uint32_t texture[4][tex_width * tex_height];
 
 
 // void render_structures(t_game *game)
@@ -104,7 +120,7 @@ uint32_t texture[4][tex_width * tex_height];
 
 //         // which box of the map we're in
 //         int mapX = (int)posX;
-//         int mapY = (int)posY;
+//         int mapY = (int)view->pos_y;
 
 //         // length of ray from current position to next x or y-side
 //         double sideDistX;
@@ -136,12 +152,12 @@ uint32_t texture[4][tex_width * tex_height];
 //         if (rayDirY < 0)
 //         {
 //             stepY = -1;
-//             sideDistY = (posY - mapY) * deltaDistY;
+//             sideDistY = (view->pos_y - mapY) * deltaDistY;
 //         }
 //         else
 //         {
 //             stepY = 1;
-//             sideDistY = (mapY + 1.0 - posY) * deltaDistY;
+//             sideDistY = (mapY + 1.0 - view->pos_y) * deltaDistY;
 //         }
 
 //         // perform DDA
@@ -185,10 +201,10 @@ uint32_t texture[4][tex_width * tex_height];
 //         // texturing calculations
 //         int texNum = worldMap[mapX][mapY] - 1; // 1 subtracted from it so that texture 0 can be used!
 
-//         // calculate value of wallX
+//         // calculate value of game->textures->wall_x
 //         double wallX; // where exactly the wall was hit
 //         if (side == 0)
-//             wallX = posY + perpWallDist * rayDirY;
+//             wallX = view->pos_y + perpWallDist * rayDirY;
 //         else
 //             wallX = posX + perpWallDist * rayDirX;
 //         wallX -= floor((wallX));

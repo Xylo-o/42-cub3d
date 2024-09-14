@@ -30,6 +30,8 @@ NEW_SRC := cub3D.c \
 		utils/utils2.c \
 		textures/textures.c \
 
+# NEW_SRC := test.c
+
 OBJ := $(GNL_SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(NEW_SRC:.c=.o)
 
 all: $(NAME)

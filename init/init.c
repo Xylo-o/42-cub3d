@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/08/05 15:37:46 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 11:43:55 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ void	init_map(t_map *map)
 {
 	map->map_x = 0;
 	map->map_y = 0;
-	map->color = 0;
 	map->side = 0;
 	map->hit = 0;
 }
@@ -60,8 +59,6 @@ void	init_paths(t_paths *paths)
 
 int	init(t_game *game)
 {
-	game->x_tex = 0;
-	game->y_tex = 0;
 	if (!game)
 		return (1);
 	game->mlx = mlx_init(screen_w, screen_h, "cub3D", false);

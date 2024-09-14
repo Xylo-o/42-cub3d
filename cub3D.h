@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/08/07 14:52:53 by adprzyby         ###   ########.fr       */
+/*   Created: 2024/07/08 16:25:34 by adprzyby          #+#    #+#             */
+/*   Updated: 2024/09/14 11:44:15 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ typedef struct s_map
 {
 	int				map_x;
 	int				map_y;
-	unsigned int	color;
 	int				side;
 	int				hit;
 }					t_map;
@@ -81,15 +80,16 @@ typedef struct s_textures
 	mlx_texture_t	*we_texture;
 	mlx_texture_t	*ea_texture;
 	mlx_texture_t	*tmp;
+	uint32_t		*color;
 	long			ceiling_hex;
 	long			floor_hex;
-	uint32_t		*pixar;
+	double			wall_x;
+	int				x_tex;
+	int				y_tex;
 }					t_textures;
 
 typedef struct s_game
 {
-	int				x_tex;
-	int				y_tex;
 	void			*mlx;
 	void			*win;
 	t_view			*view;
@@ -122,7 +122,7 @@ void				render_structures(t_game *game);
 void				draw_ceiling(t_game *game, int x, int draw_start);
 void				draw_floor(t_game *game, int x, int draw_end);
 void				put_image(t_game *game);
-void				draw_walls(t_game *game, int x, int draw_start, int draw_end);
+void				draw_walls(t_game *game, int x, int draw_start, int draw_end, int wall_height);
 void				calculate_cam(t_game *game, int x);
 void				calculate_delta(t_game *game);
 void				calculate_pos(t_game *game);
@@ -142,51 +142,3 @@ double				ft_sin(double n);
 double				ft_abs(double n);
 void 				get_texture(t_game *game, int x, int y);
 void				get_color(t_game *game, mlx_texture_t *texture, int x, int y);
-
-
-// typedef struct s_player
-// {
-// 	int			i;
-// 	int			j;
-// 	int			pos_x;
-// 	int			pos_y;
-// 	double		dir_x;
-// 	double		dir_y;
-// }				t_player;
-
-// typedef struct s_game
-// {
-// 	char		**map;
-// 	char		**file_content;
-// 	char		**tmp;
-// 	int			map_width;
-// 	int			map_height;
-// 	int			map_size;
-// 	int			shape_size;
-// 	t_view		view;
-// 	t_paths		paths;
-// 	t_textures	textures;
-// 	t_player	player;
-// }				t_game;
-
-// int				empty_line(char *line);
-// char			*check_tex_get_path(t_game *data, int i, const char *tex_type);
-// void			save_texture(t_game *data, int i);
-// int				parse_textures_paths(t_game *data, int length);
-// void			load_and_initialize_textures(mlx_t *mlx, t_game *data);
-
-// size_t			map_length(t_game *data, int line_index);
-// char			**memory_alloc(char **src, size_t length);
-// int				parse_map(t_game *data, int line_index);
-// void			validate_map(t_game *data);
-// void			check_dimensions(t_game *data);
-// int				is_map_line(char *line);
-// void			valid_texture_line(char *str, char *type);
-// size_t			get_index(char *line, char *type);
-// int				beflastline(char **map, int y);
-// size_t			line_length(char *line, char *start);
-// int				valid_cell_path(t_game *game, int y, int x);
-// void			check_valid_path(t_game *game, int y, int x);
-// long			rgb_to_hex(char *line);
-// long			return_hex_rgb(char *line);
-// void			check_comma(char *line);
