@@ -6,23 +6,31 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:11 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/12 23:37:52 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/14 19:09:45 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-bool	is_color(char *line)
+bool	is_color(t_game *game, char *line)
 {
-	if ((!ft_strncmp(line, "F ", 2) || !ft_strncmp(line, "C ", 2))
-		&& ft_strlen(line) >= 7)
+	int	i;
+
+	i = 0;
+	while (ft_isspace(line[i]))
+		i++;
+	if (ft_strlen(line + i) < 7)
+		return (false);
+	if (!ft_strncmp(line + i, "F ", 2) && game->textures->floor_hex < 0)
+		return (true);
+	else if (!ft_strncmp(line + i, "C ", 2) && game->textures->ceiling_hex < 0)
 		return (true);
 	return (false);
 }
 
 int	add_color(t_game *game, int nbr, char c)
 {
-	static int 	rgb[3] = {-1, -1, -1};
+	static int	rgb[3] = {-1, -1, -1};
 	static int	i = 0;
 
 	if (i == 0)
@@ -36,6 +44,8 @@ int	add_color(t_game *game, int nbr, char c)
 			game->textures->floor_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 		else if (c == 'C')
 			game->textures->ceiling_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+		// printf("c: %06lX\n", game->textures->ceiling_hex);
+		// printf("f: %06lX\n", game->textures->floor_hex);
 		i = 0;
 		rgb[0] = -1;
 		rgb[1] = -1;
@@ -45,7 +55,8 @@ int	add_color(t_game *game, int nbr, char c)
 	i++;
 	return (0);
 }
-int		check_number(t_game *game, char *line, int i, int start)
+
+int	check_number(t_game *game, char *line, int i, int start)
 {
 	char	*str_nbr;
 	int		status;
@@ -63,6 +74,7 @@ int		check_number(t_game *game, char *line, int i, int start)
 	free (str_nbr);
 	return (status);
 }
+
 void	check_color(t_game *game, char *line)
 {
 	int		status;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/08/07 14:52:53 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/16 18:11:14 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
+# include <errno.h>
 
 #endif
 
@@ -44,6 +45,10 @@ typedef struct s_view
 
 typedef struct s_map
 {
+	char			**map;
+	bool			in_map;
+	int				map_width;
+	int				map_height;
 	int				map_x;
 	int				map_y;
 	unsigned int	color;
@@ -98,6 +103,7 @@ typedef struct s_game
 	t_paths			*paths;
 	t_textures		*textures;
 	mlx_image_t		*buffer;
+	char			*my_error;
 }					t_game;
 
 // CONTROLS
@@ -110,11 +116,26 @@ void				case_key_left(t_game *game, double rot_speed,
 void				case_key_right(t_game *game, double rot_speed,
 						double old_dir_x, double old_cam_x);
 
+//PARSER
+void				check_input(t_game *game, int argc, char *argv[]);
+void				parser(t_game *game, char **argv);
+bool				is_texture(t_game *game, char *line);
+void				check_textures(t_game *game, char *line);
+bool				is_color(t_game *game, char *line);
+void				check_color(t_game *game, char *line);
+bool				is_map(t_game *game, char *line);
+void				check_map(t_game *game, int fd);
+void				terminate(t_game *game);
+bool				is_empty_line(char *line);
+void				print_map(char **map);
+void				ft_replace_char(char **line, char c1, char c2);
+
 // INIT
 void				init_view(t_view *view);
 void				init_paths(t_paths *paths);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
+void				init_textures(t_textures *textures);
 int					init(t_game *game);
 
 // RENDER

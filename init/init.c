@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/08/05 15:37:46 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/14 22:00:15 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,16 @@ void	init_view(t_view *view)
 	view->cam_y = 0.66;
 	view->dir_x = 1;
 	view->dir_y = 0;
-	view->pos_x = 22;
-	view->pos_y = 11.5;
+	view->pos_x = 5;
+	view->pos_y = 5;
 	view->step_x = 0;
 	view->step_y = 0;
 }
 
 void	init_map(t_map *map)
 {
+	map->map = NULL;
+	map->in_map = false;
 	map->map_x = 0;
 	map->map_y = 0;
 	map->color = 0;
@@ -58,10 +60,21 @@ void	init_paths(t_paths *paths)
 	paths->ea_path = "./textures/pics/redbrick.png";
 }
 
+void	init_textures(t_textures *textures)
+{
+	textures->no_texture = NULL;
+	textures->so_texture = NULL;
+	textures->ea_texture = NULL;
+	textures->we_texture = NULL;
+	textures->ceiling_hex = -1;
+	textures->floor_hex = -1;
+}
+
 int	init(t_game *game)
 {
 	game->x_tex = 0;
 	game->y_tex = 0;
+	game->my_error = NULL;
 	if (!game)
 		return (1);
 	game->mlx = mlx_init(screen_w, screen_h, "cub3D", false);
@@ -90,5 +103,6 @@ int	init(t_game *game)
 	if (!game->textures)
 		return (1);
 	load_textures(game);
+	init_textures(game->textures);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 16:37:49 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/10 19:09:06 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:10:15 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,49 +29,72 @@ void	check_input(t_game *game, int argc, char **argv)
 	}
 }
 
-char	*get_content_line(t_game *game, char **argv)
+bool	is_empty_line(char *line)
 {
-	int		fd;
-	char	*line;
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(line);
+	i = 0;
+	while(ft_isspace(line[i]))
+		i++;
+	if (i == len)
+		return (true);
+	return (false);	
+}
+
+void	check_tex_or_color(t_game *game, char *line)
+{
 	char	*new_line;
 
-	line = NULL;
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0)
-		terminate(game);
-	while (line == NULL)
+	if (is_empty_line(line))
 	{
-		line = get_next_line(fd);
-		if (ft_strlen(line) == 1 && line[0] == '\n')
-		{
-			free(line);
-			line = NULL;
-			continue ;
-		}
+		free(line);
+		return ;
 	}
 	new_line = ft_strtrim(line, " \t\r\n");
 	free(line);
-	return (new_line);
+	line = NULL;
+	if (!new_line)
+		terminate(game);
+	if (is_texture(game, new_line))
+		check_textures(game, new_line);
+	else if (is_color(game, new_line))
+		check_color(game, new_line);
+	else
+	{
+		game->my_error = "Invalid file content!";
+	 	terminate(game);
+	}
 }
 
-
+bool	are_values_set(t_textures *tex)
+{
+	if (!tex->no_texture || !tex->so_texture || !tex->we_texture || !tex->ea_texture)
+		return (false);
+	if (tex->floor_hex < 0 || tex->ceiling_hex < 0)
+		return (false);
+	return (true);
+}
+	
 void	parser(t_game *game, char **argv)
 {
-	game->textures->no_texture = NULL;
-	game->textures->so_texture = NULL;
-	game->textures->ea_texture = NULL;
-	game->textures->we_texture = NULL;
-	game->textures->ceiling_hex = -1;
-	game->textures->floor_hex = -1;
-
 	char	*line;
+	int		fd;
 
-	line = get_content_line(game, argv);
-	if (is_texture(line))
-		check_textures(game, line);
-	else if (is_color(line))
-		check_color(game, line);
-	// check_map(); // alloc for flood fill
-	// |_> check_chars();
-	// |_> is_closed();
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0)
+		terminate(game);
+	while (!are_values_set(game->textures))
+	{
+		line = get_next_line(fd);
+		if (!line)
+		{
+			game->my_error = "Incomplete file content!";
+	 		terminate(game);
+		}
+		// printf("%s", line);
+		check_tex_or_color(game, line);
+	}
+	check_map(game, fd);
 }
