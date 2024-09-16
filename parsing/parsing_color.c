@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:11 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/14 19:09:45 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:20:56 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	is_color(t_game *game, char *line)
 	return (false);
 }
 
-int	add_color(t_game *game, int nbr, char c)
+int	add_color(t_textures *tex, int nbr, char c)
 {
 	static int	rgb[3] = {-1, -1, -1};
 	static int	i = 0;
@@ -41,11 +41,11 @@ int	add_color(t_game *game, int nbr, char c)
 	{
 		rgb[2] = nbr;
 		if (c == 'F')
-			game->textures->floor_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+			tex->floor_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 		else if (c == 'C')
-			game->textures->ceiling_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
-		// printf("c: %06lX\n", game->textures->ceiling_hex);
-		// printf("f: %06lX\n", game->textures->floor_hex);
+			tex->ceiling_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+		// printf("c: %06lX\n", tex->ceiling_hex);
+		// printf("f: %06lX\n", tex->floor_hex);
 		i = 0;
 		rgb[0] = -1;
 		rgb[1] = -1;
@@ -70,7 +70,7 @@ int	check_number(t_game *game, char *line, int i, int start)
 		game->my_error = "Number has to be between 0 and 255\n";
 		terminate(game);
 	}
-	status = add_color(game, ft_atoi(str_nbr), line[0]);
+	status = add_color(game->textures, ft_atoi(str_nbr), line[0]);
 	free (str_nbr);
 	return (status);
 }

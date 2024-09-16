@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:42:40 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:08:46 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:19:09 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	fill_map(t_game *game, char **map)
 		len = ft_strlen(map[i]);
 		if (len < width)
 		{
-			temp = create_filled_string(map[i],  width,  len);
+			temp = create_filled_string(map[i], width, len);
 			free(map[i]);
 			map[i] = temp;
 		}
@@ -117,7 +117,6 @@ void	create_map(t_game *game, char *buf)
 	free(buf);
 	print_map(game->map->map);
 	set_map_values(game->map);
-	// ft_replace_char(game->map->map, ' ', '1');
 	fill_map(game, game->map->map);
 	print_map(game->map->map);
 }
@@ -137,7 +136,6 @@ void	check_map(t_game *game, int fd)
 			free(line);
 			continue ;
 		}
-		// printf("%s", line);
 		if (is_map(game, line))
 			buf = load_map(game, line);
 		else

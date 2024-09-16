@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 16:37:49 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:10:15 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:23:19 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ bool	is_empty_line(char *line)
 
 	len = ft_strlen(line);
 	i = 0;
-	while(ft_isspace(line[i]))
+	while (ft_isspace(line[i]))
 		i++;
 	if (i == len)
 		return (true);
-	return (false);	
+	return (false);
 }
 
 void	check_tex_or_color(t_game *game, char *line)
@@ -64,19 +64,22 @@ void	check_tex_or_color(t_game *game, char *line)
 	else
 	{
 		game->my_error = "Invalid file content!";
-	 	terminate(game);
+		terminate(game);
 	}
 }
 
 bool	are_values_set(t_textures *tex)
 {
-	if (!tex->no_texture || !tex->so_texture || !tex->we_texture || !tex->ea_texture)
+	if (!tex->no_texture || !tex->so_texture
+		|| !tex->we_texture || !tex->ea_texture)
+	{
 		return (false);
+	}
 	if (tex->floor_hex < 0 || tex->ceiling_hex < 0)
 		return (false);
 	return (true);
 }
-	
+
 void	parser(t_game *game, char **argv)
 {
 	char	*line;
@@ -91,7 +94,7 @@ void	parser(t_game *game, char **argv)
 		if (!line)
 		{
 			game->my_error = "Incomplete file content!";
-	 		terminate(game);
+			terminate(game);
 		}
 		// printf("%s", line);
 		check_tex_or_color(game, line);

@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:52:08 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:12:22 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:21:36 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	free_textures(t_game *game)
 		mlx_terminate(game->mlx);
 }
 
-static void free_game(t_game *game)
+static void	free_game(t_game *game)
 {
 	if (game->view)
 		free(game->view);

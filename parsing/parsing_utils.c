@@ -6,12 +6,13 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:49:37 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 17:13:22 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:18:52 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
+//   TEMP
 void	print_map(char **map)
 {
 	int	i;
@@ -46,6 +47,7 @@ void	ft_replace_char(char **line, char c1, char c2)
 	}
 }
 
+//   TEMP
 void	print_line(char *line)
 {
 	int	i = 0;
