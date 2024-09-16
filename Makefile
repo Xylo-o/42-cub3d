@@ -21,7 +21,6 @@ SRC := cub3D.c \
 		render/raycast3.c \
 		controls/key_control1.c \
 		controls/key_control2.c \
-		utils/utils1.c \
 
 OBJDIR := obj/
 

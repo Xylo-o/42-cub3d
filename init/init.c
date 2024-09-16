@@ -6,11 +6,11 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 14:51:53 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:02:57 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3D.h"
+#include "../cub3D.h"
 
 void	init_view(t_view *view)
 {
@@ -53,10 +53,10 @@ int	init(t_game *game)
 {
 	if (!game)
 		return (1);
-	game->mlx = mlx_init(screen_w, screen_h, "cub3D", false);
+	game->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
 	if (!game->mlx)
 		return (1);
-	game->buffer = mlx_new_image(game->mlx, screen_w, screen_h);
+	game->buffer = mlx_new_image(game->mlx, SCREEN_W, SCREEN_H);
 	if (!game->buffer)
 		return (1);
 	game->view = (t_view *)malloc(sizeof(t_view));

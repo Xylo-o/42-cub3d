@@ -6,19 +6,49 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:35:20 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 12:41:06 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/16 11:02:57 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3D.h"
+#include "../cub3D.h"
 
-extern int 		worldMap[][mapHeight];
+extern int	worldMap[][mapHeight];
+
+#define FLOOR_COLOR 0x00FF00FF
+#define CEILING_COLOR 0X0000FFFF
+
+void	draw_ceiling(t_game *game, int x, int draw_start)
+{
+	int	y;
+
+	y = 0;
+	while (y < draw_start)
+	{
+		mlx_put_pixel(game->buffer, x, y, CEILING_COLOR);
+		y++;
+	}
+}
+
+void	draw_floor(t_game *game, int x, int draw_end)
+{
+	int	y;
+
+	if (draw_end < 0 || draw_end >= SCREEN_H - 1)
+		return ;
+	y = draw_end + 1;
+	while (y < SCREEN_H)
+	{
+		if (x >= 0 && x < SCREEN_W)
+			mlx_put_pixel(game->buffer, x, y, FLOOR_COLOR);
+		y++;
+	}
+}
 
 void	calculate_cam(t_game *game, int x)
 {
 	double	camera_x;
 
-	camera_x = 2 * x / (double)screen_w - 1;
+	camera_x = 2 * x / (double)SCREEN_W - 1;
 	game->ray->dir_x = game->view->dir_x + game->view->cam_x * camera_x;
 	game->ray->dir_y = game->view->dir_y + game->view->cam_y * camera_x;
 	game->map->map_x = (int)game->view->pos_x;
@@ -42,50 +72,25 @@ void	calculate_pos(t_game *game)
 	if (game->ray->dir_x < 0)
 	{
 		game->view->step_x = -1;
-		game->ray->side_dist_x = (game->view->pos_x - game->map->map_x) * game->ray->delta_dist_x;
+		game->ray->side_dist_x = (game->view->pos_x - game->map->map_x)
+			* game->ray->delta_dist_x;
 	}
 	else
 	{
 		game->view->step_x = 1;
-		game->ray->side_dist_x = (game->map->map_x + 1.0 - game->view->pos_x) * game->ray->delta_dist_x;
+		game->ray->side_dist_x = (game->map->map_x + 1.0 - game->view->pos_x)
+			* game->ray->delta_dist_x;
 	}
 	if (game->ray->dir_y < 0)
 	{
 		game->view->step_y = -1;
-		game->ray->side_dist_y = (game->view->pos_y - game->map->map_y) * game->ray->delta_dist_y;
+		game->ray->side_dist_y = (game->view->pos_y - game->map->map_y)
+			* game->ray->delta_dist_y;
 	}
 	else
 	{
 		game->view->step_y = 1;
-		game->ray->side_dist_y = (game->map->map_y + 1.0 - game->view->pos_y) * game->ray->delta_dist_y;
+		game->ray->side_dist_y = (game->map->map_y + 1.0 - game->view->pos_y)
+			* game->ray->delta_dist_y;
 	}
-}
-
-void	calculate_hit(t_game *game)
-{
-	while (game->map->hit == 0)
-	{
-		if (game->ray->side_dist_x < game->ray->side_dist_y)
-		{
-			game->ray->side_dist_x += game->ray->delta_dist_x;
-			game->map->map_x += game->view->step_x;
-			game->map->side = 0;
-		}
-		else
-		{
-			game->ray->side_dist_y += game->ray->delta_dist_y;
-			game->map->map_y += game->view->step_y;
-			game->map->side = 1;
-		}
-		if (worldMap[game->map->map_x][game->map->map_y] > 0)
-			game->map->hit = 1;
-	}
-}
-
-void	calculate_ray(t_game *game)
-{
-	if (game->map->side == 0)
-		game->ray->dist = (game->ray->side_dist_x - game->ray->delta_dist_x);
-	else
-		game->ray->dist = (game->ray->side_dist_y - game->ray->delta_dist_y);
 }

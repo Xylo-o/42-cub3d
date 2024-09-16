@@ -6,11 +6,11 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:51:24 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 14:54:28 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/16 10:53:17 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../cub3D.h"
+#include "../cub3D.h"
 
 extern int	worldMap[][mapHeight];
 
@@ -29,7 +29,7 @@ void	case_key_back(t_game *game, double mv_speed)
 			* mv_speed)][(int)game->view->pos_y] == false)
 		game->view->pos_x -= game->view->dir_x * mv_speed;
 	if (worldMap[(int)game->view->pos_x][(int)(game->view->pos_y
-			- game->view->dir_y * mv_speed)] == false)
+		- game->view->dir_y * mv_speed)] == false)
 		game->view->pos_y -= game->view->dir_y * mv_speed;
 }
 
@@ -39,22 +39,26 @@ void	case_key_forward(t_game *game, double mv_speed)
 			* mv_speed)][(int)game->view->pos_y] == 0)
 		game->view->pos_x += game->view->dir_x * mv_speed;
 	if (worldMap[(int)game->view->pos_x][(int)(game->view->pos_y
-			+ game->view->dir_y * mv_speed)] == 0)
+		+ game->view->dir_y * mv_speed)] == 0)
 		game->view->pos_y += game->view->dir_y * mv_speed;
 }
 
-void case_key_right(t_game *game, double mv_speed)
+void	case_key_right(t_game *game, double mv_speed)
 {
-	if (worldMap[(int)(game->view->pos_x - game->view->dir_y * mv_speed)][(int)game->view->pos_y] == 0)
+	if (worldMap[(int)(game->view->pos_x - game->view->dir_y
+			* mv_speed)][(int)game->view->pos_y] == 0)
 		game->view->pos_x -= game->view->dir_y * mv_speed;
-	if (worldMap[(int)game->view->pos_x][(int)(game->view->pos_y + game->view->dir_x * mv_speed)] == 0)
+	if (worldMap[(int)game->view->pos_x][(int)(game->view->pos_y
+		+ game->view->dir_x * mv_speed)] == 0)
 		game->view->pos_y += game->view->dir_x * mv_speed;
 }
 
-void case_key_left(t_game *game, double mv_speed)
+void	case_key_left(t_game *game, double mv_speed)
 {
-	if (worldMap[(int)(game->view->pos_x + game->view->dir_y * mv_speed)][(int)game->view->pos_y] == 0)
+	if (worldMap[(int)(game->view->pos_x + game->view->dir_y
+			* mv_speed)][(int)game->view->pos_y] == 0)
 		game->view->pos_x += game->view->dir_y * mv_speed;
-	if (worldMap[(int)game->view->pos_x][(int)(game->view->pos_y - game->view->dir_x * mv_speed)] == 0)
+	if (worldMap[(int)game->view->pos_x][(int)(game->view->pos_y
+		- game->view->dir_x * mv_speed)] == 0)
 		game->view->pos_y -= game->view->dir_x * mv_speed;
 }
