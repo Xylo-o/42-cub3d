@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:52:08 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/10 19:07:33 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/16 18:12:22 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,16 @@ static void free_game(t_game *game)
 		free(game->textures);
 }
 
+static void	free_array(char **str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+		free(str[i]);
+	free(str);
+}
+
 void	ft_mlx_error(void)
 {
 	size_t		len;
@@ -52,6 +62,8 @@ void	ft_mlx_error(void)
 
 void	terminate(t_game *game)
 {
+	if (game->map->map)
+		free_array(game->map->map);
 	free_textures(game);
 	free_game(game);
 	if (game->my_error != NULL)
