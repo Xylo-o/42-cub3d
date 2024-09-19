@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:42:40 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:19:09 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:25:33 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,13 @@ bool	is_map(t_game *game, char *line)
 		game->map->in_map = true;
 		return (true);
 	}
+	return (false);
+}
+
+bool	is_player_char(char c)
+{
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (true);
 	return (false);
 }
 
@@ -47,6 +54,20 @@ char	*load_map(t_game *game, char *line)
 	free(buf);
 	buf = temp;
 	return (buf);
+}
+
+void	set_start_pos(t_game *game, t_map *map, int i, int j)
+{
+	if (map->start_pos.x == -1 && map->start_pos.y == -1)
+	{
+		map->start_pos.x = j;
+		map->start_pos.y = i;
+	}
+	else
+	{
+		game->my_error = "Map can only contain one N, S, E or W!";
+		terminate(game);
+	}
 }
 
 void	set_map_values(t_map *map)
@@ -111,14 +132,46 @@ void	fill_map(t_game *game, char **map)
 	}
 }
 
+void	check_mapchars(t_game *game, char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] != '0' && map[i][j] != '1'
+				&& !is_player_char(map[i][j]))
+			{
+				game->my_error = "Map has undefined chars!";
+				terminate(game);
+			}
+			if (is_player_char(map[i][j]))
+				set_start_pos(game, game->map, i , j);		
+			j++;
+		}
+		i++;
+	}
+}
+
 void	create_map(t_game *game, char *buf)
 {
 	game->map->map = ft_split(buf, '\n');
 	free(buf);
-	print_map(game->map->map);
+	// print_map(game->map->map);
 	set_map_values(game->map);
 	fill_map(game, game->map->map);
-	print_map(game->map->map);
+	// print_map(game->map->map);
+	// parse_map(game, game->map->map);
+	check_mapchars(game, game->map->map);
+	game->map->ff_map = copy_map(game->map->map);
+	// write(1, "\n", 1);
+	// print_map(game->map->ff_map);
+	flood_fill(game, game->map->start_pos.x, game->map->start_pos.y);
+	print_map(game->map->ff_map);
 }
 
 void	check_map(t_game *game, int fd)

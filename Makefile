@@ -12,7 +12,8 @@ INCLUDE := -Iincludes -Imlx
 # 				parsing/textures_parsing.c 
 
 PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
-			parsing/parsing_texture.c parsing/parsing_color.c parsing/parsing_map.c
+			parsing/parsing_texture.c parsing/parsing_color.c parsing/parsing_map.c\
+			parsing/parsing_floodfill.c
 
 GNL_SRC := get_next_line/get_next_line.c
 

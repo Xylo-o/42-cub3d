@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:52:08 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:21:36 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/19 21:24:09 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static void	free_array(char **str)
 
 	i = 0;
 	while (str[i])
+	{
 		free(str[i]);
+		i++;
+	}
 	free(str);
 }
 
@@ -64,12 +67,15 @@ void	terminate(t_game *game)
 {
 	if (game->map->map)
 		free_array(game->map->map);
+	if (game->map->ff_map)
+		free_array(game->map->ff_map);
 	free_textures(game);
 	free_game(game);
 	if (game->my_error != NULL)
 	{
 		write(STDERR_FILENO, "Error: ", 7);
 		write(STDERR_FILENO, game->my_error, ft_strlen(game->my_error));
+		write(STDERR_FILENO, "\n", 1);
 	}
 	else if (mlx_errno != 0)
 		ft_mlx_error();
