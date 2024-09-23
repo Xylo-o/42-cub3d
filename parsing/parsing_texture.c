@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:13 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/14 19:09:48 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/22 01:16:28 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,13 @@ bool	is_texture(t_game *game, char *line)
 
 void	create_texture(char *path, mlx_texture_t **texture)
 {
+	// if (!*texture)
+	// 	*texture = mlx_load_png(path);
 	if (!*texture)
-		*texture = mlx_load_png(path);
+		*texture = ((mlx_texture_t *)1);
 	// printf("-%s\n", path);
+	(void)texture;
+	// free(line);
 	free(path);
 	return ;
 }
@@ -62,7 +66,11 @@ void	check_textures(t_game *game, char *line)
 	path = ft_substr(line, space + 2, ft_strlen(line) - space - 2);
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
+	{
+		free(path);
+		free(line);
 		terminate(game);
+	}
 	if (line[0] == 'N')
 		create_texture(path, &game->textures->no_texture);
 	else if (line[0] == 'S')

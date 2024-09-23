@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/18 20:40:49 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/19 21:23:17 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:51:04 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ char	**copy_map(char **map)
 
 void	flood_fill(t_game *game, int x, int y)
 {
-	// printf("x: %d | y: %d\n", x, y);
 	if (!game->map->ff_map[y] || !game->map->ff_map[y][x])
 	{
-		game->my_error = "Map is not surrounded by walls!";
+		game->my_error = "Map is not surrounded by walls";
 		terminate(game);
 	}
 	if (game->map->ff_map[y][x] == '1' || game->map->ff_map[y][x] == 'X')

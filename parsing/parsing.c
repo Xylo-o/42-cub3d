@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 16:37:49 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:23:19 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:48:57 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@ void	check_input(t_game *game, int argc, char **argv)
 
 	if (argc != 2)
 	{
-		game->my_error = "Input has to be: \"./cub3d <map.cub>\"\n";
+		game->my_error = "Input has to be: \"./cub3d <map.cub>\"";
 		terminate(game);
 	}
 	len = ft_strlen(argv[1]);
 	if (len <= 4 || ft_strcmp(argv[1] + len - 4, ".cub") != 0)
 	{
-		game->my_error = "Input file has to be \".cub\"\n";
+		game->my_error = "Input file has to be \".cub\"";
 		terminate(game);
 	}
 }
@@ -63,9 +63,11 @@ void	check_tex_or_color(t_game *game, char *line)
 		check_color(game, new_line);
 	else
 	{
-		game->my_error = "Invalid file content!";
+		game->my_error = "Invalid file content";
+		free(new_line);
 		terminate(game);
 	}
+	free(new_line);
 }
 
 bool	are_values_set(t_textures *tex)
@@ -93,11 +95,10 @@ void	parser(t_game *game, char **argv)
 		line = get_next_line(fd);
 		if (!line)
 		{
-			game->my_error = "Incomplete file content!";
+			game->my_error = "Incomplete file content";
 			terminate(game);
 		}
-		// printf("%s", line);
 		check_tex_or_color(game, line);
 	}
-	check_map(game, fd);
+	check_map_part(game, fd);
 }

@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/13 23:42:40 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/19 21:25:33 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:48:40 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ bool	is_map(t_game *game, char *line)
 	(void)game;
 	while (ft_isspace(line[i]))
 		i++;
-	if (line[i] == '1')
+	if (line[i] == '1' || line[i] == '0')
 	{
 		game->map->in_map = true;
 		return (true);
@@ -88,8 +88,6 @@ void	set_map_values(t_map *map)
 	}
 	map->map_height = height;
 	map->map_width = width;
-	printf("Height: %d\n", map->map_height);
-	printf("Width: %d\n", map->map_width);
 }
 
 char	*create_filled_string(char *line, size_t width, size_t len)
@@ -97,11 +95,11 @@ char	*create_filled_string(char *line, size_t width, size_t len)
 	char	*temp;
 
 	temp = (char *)malloc(sizeof(char) * width + 1);
-	ft_strlcpy(temp, line, len);
-	len--;
+	ft_strlcpy(temp, line, len + 1);
 	while (len < width)
 	{
-		temp[len] = '1';
+		
+		temp[len] = '0';
 		len++;
 	}
 	temp[len] = '\0';
@@ -118,7 +116,7 @@ void	fill_map(t_game *game, char **map)
 	width = game->map->map_width;
 	len = 0;
 	i = 0;
-	ft_replace_char(game->map->map, ' ', '1');
+	ft_replace_char(game->map->map, ' ', '0');
 	while (map[i])
 	{
 		len = ft_strlen(map[i]);
@@ -146,7 +144,7 @@ void	check_mapchars(t_game *game, char **map)
 			if (map[i][j] != '0' && map[i][j] != '1'
 				&& !is_player_char(map[i][j]))
 			{
-				game->my_error = "Map has undefined chars!";
+				game->my_error = "Map has undefined chars";
 				terminate(game);
 			}
 			if (is_player_char(map[i][j]))
@@ -161,42 +159,113 @@ void	create_map(t_game *game, char *buf)
 {
 	game->map->map = ft_split(buf, '\n');
 	free(buf);
-	// print_map(game->map->map);
 	set_map_values(game->map);
 	fill_map(game, game->map->map);
-	// print_map(game->map->map);
-	// parse_map(game, game->map->map);
 	check_mapchars(game, game->map->map);
 	game->map->ff_map = copy_map(game->map->map);
-	// write(1, "\n", 1);
-	// print_map(game->map->ff_map);
 	flood_fill(game, game->map->start_pos.x, game->map->start_pos.y);
-	print_map(game->map->ff_map);
 }
 
-void	check_map(t_game *game, int fd)
+// void	check_map(t_game *game, int fd)
+// {
+// 	char		*line;
+// 	char		*buf;
+
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (!line)
+// 			break ;
+// 		if (!game->map->in_map && is_empty_line(line))
+// 		{
+// 			free(line);
+// 			continue ;
+// 		}
+// 		if (is_map(game, line))
+// 			buf = load_map(game, line);
+// 		else
+// 		{
+// 			game->my_error = "Invalid file content";
+// 			free(buf);
+// 			terminate(game);
+// 		}
+// 	}
+// 	create_map(game, buf);
+// }
+
+char	*skip_empty_lines(int fd)
 {
 	char		*line;
-	char		*buf;
 
 	while (1)
 	{
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (!game->map->in_map && is_empty_line(line))
+		if (is_empty_line(line))
 		{
 			free(line);
 			continue ;
 		}
+		else
+			return (line);
+	}
+	return (NULL);
+}
+
+char	*check_map(t_game *game, char *line, int fd)
+{
+	char	*buf;
+
+	buf = NULL;
+	while (line)
+	{
 		if (is_map(game, line))
 			buf = load_map(game, line);
+		else if (is_empty_line(line))
+		{
+			if (buf)
+				create_map(game, buf);
+			return (line);
+		}
 		else
 		{
 			game->my_error = "Invalid file content!";
+			free(line);
 			free(buf);
 			terminate(game);
 		}
+		line = get_next_line(fd);
 	}
 	create_map(game, buf);
+	return (NULL);
+}
+
+void	check_end(t_game *game, char *line, int fd)
+{
+	while (line)
+	{
+		if (is_empty_line(line))
+			free(line);
+		else
+		{
+			game->my_error = "Invalid file content!";
+			free(line);
+			terminate(game);
+		}
+		line = get_next_line(fd);
+	}
+}
+
+void	check_map_part(t_game *game, int fd)
+{
+	char	*line;
+
+	line = skip_empty_lines(fd);
+	if (line)
+	{
+		line = check_map(game, line, fd);
+		if (line)
+			check_end(game, line, fd);
+	}
 }

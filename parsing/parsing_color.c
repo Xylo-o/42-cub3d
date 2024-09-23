@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:11 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:20:56 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 16:50:50 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ int	add_color(t_textures *tex, int nbr, char c)
 			tex->floor_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
 		else if (c == 'C')
 			tex->ceiling_hex = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
-		// printf("c: %06lX\n", tex->ceiling_hex);
-		// printf("f: %06lX\n", tex->floor_hex);
 		i = 0;
 		rgb[0] = -1;
 		rgb[1] = -1;
@@ -67,7 +65,8 @@ int	check_number(t_game *game, char *line, int i, int start)
 	if (ft_strlen(str_nbr) > 3 || ft_atoi(str_nbr) > 255)
 	{
 		free(str_nbr);
-		game->my_error = "Number has to be between 0 and 255\n";
+		free(line);
+		game->my_error = "Number has to be between 0 and 255";
 		terminate(game);
 	}
 	status = add_color(game->textures, ft_atoi(str_nbr), line[0]);
@@ -96,7 +95,8 @@ void	check_color(t_game *game, char *line)
 			i++;
 		if ((status == 1 && line[i] != '\0') || (line[i] && line[i] != ','))
 		{
-			game->my_error = "Color does not match pattern: 'C/F r,g,b'\n";
+			game->my_error = "Color does not match pattern: 'C/F r,g,b'";
+			free(line);
 			terminate(game);
 		}
 		i++;
