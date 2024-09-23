@@ -8,12 +8,9 @@ FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
 
 INCLUDE := -Iincludes -Imlx
 
-# PARSING_SRC := parsing/data_parsing.c parsing/file_data.c parsing/file_extension.c parsing/file_parser.c\
-# 				parsing/textures_parsing.c 
-
 PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
 			parsing/parsing_texture.c parsing/parsing_color.c parsing/parsing_map.c\
-			parsing/parsing_floodfill.c
+			parsing/parsing_floodfill.c parsing/create_map.c
 
 GNL_SRC := get_next_line/get_next_line.c
 
@@ -51,6 +48,9 @@ $(NAME) : $(OBJ)
 
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
+
+test:
+	cc -Wall -Werror -Wextra $(LIBFT_SRC) $(GNL_SRC) cub3D.c $(PARSING_SRC) init/init.c -o test
 
 clean :
 	@find . -name "*.o" -type f -delete

@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:13 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/22 01:16:28 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:01:14 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,14 @@ bool	is_texture(t_game *game, char *line)
 		return (false);
 }
 
-void	create_texture(char *path, mlx_texture_t **texture)
+void	create_texture(t_game *game, char *path, mlx_texture_t **texture)
 {
-	// if (!*texture)
-	// 	*texture = mlx_load_png(path);
 	if (!*texture)
-		*texture = ((mlx_texture_t *)1);
-	// printf("-%s\n", path);
-	(void)texture;
-	// free(line);
+	{
+		*texture = mlx_load_png(path);
+		if (!*texture)
+			terminate(game);
+	}
 	free(path);
 	return ;
 }
@@ -72,11 +71,11 @@ void	check_textures(t_game *game, char *line)
 		terminate(game);
 	}
 	if (line[0] == 'N')
-		create_texture(path, &game->textures->no_texture);
+		create_texture(game, path, &game->textures->no_texture);
 	else if (line[0] == 'S')
-		create_texture(path, &game->textures->so_texture);
+		create_texture(game, path, &game->textures->so_texture);
 	else if (line[0] == 'E')
-		create_texture(path, &game->textures->ea_texture);
+		create_texture(game, path, &game->textures->ea_texture);
 	else if (line[0] == 'W')
-		create_texture(path, &game->textures->we_texture);
+		create_texture(game, path, &game->textures->we_texture);
 }

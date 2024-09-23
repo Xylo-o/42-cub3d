@@ -6,26 +6,17 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:49:37 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/16 18:18:52 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:08:51 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-//   TEMP
-void	print_map(char **map)
+bool	is_player_char(char c)
 {
-	int	i;
-
-	i = 0;
-	while (map[i])
-	{
-		if (i < 10)
-			printf(" %d - %s\n", i, map[i]);
-		else
-			printf("%d - %s\n", i, map[i]);
-		i++;
-	}
+	if (c == 'N' || c == 'S' || c == 'W' || c == 'E')
+		return (true);
+	return (false);
 }
 
 void	ft_replace_char(char **line, char c1, char c2)
@@ -47,18 +38,65 @@ void	ft_replace_char(char **line, char c1, char c2)
 	}
 }
 
-//   TEMP
-void	print_line(char *line)
+bool	is_map(t_game *game, char *line)
 {
-	int	i = 0;
+	int	i;
 
-	printf("len: %zu line: %s\n", ft_strlen(line), line);
-	while (i < 37)
-	{
-		printf("%d: %c - %d\n", i, line[i], line[i]);
-		// write(1,&line[i], 1);
-		// printf("-%d\n", line[i]);
+	i = 0;
+	(void)game;
+	while (ft_isspace(line[i]))
 		i++;
+	if (line[i] == '1' || line[i] == '0')
+	{
+		game->map->in_map = true;
+		return (true);
 	}
-	write(1, "\n", 1);
+	return (false);
 }
+
+void	set_start_pos(t_game *game, t_map *map, int i, int j)
+{
+	if (map->start_pos.x == -1 && map->start_pos.y == -1)
+	{
+		map->start_pos.x = j;
+		map->start_pos.y = i;
+	}
+	else
+	{
+		game->my_error = "Map can only contain one N, S, E or W!";
+		terminate(game);
+	}
+}
+
+//   TEMP
+// void	print_map(char **map)
+// {
+// 	int	i;
+
+// 	i = 0;
+// 	while (map[i])
+// 	{
+// 		if (i < 10)
+// 			printf(" %d - %s\n", i, map[i]);
+// 		else
+// 			printf("%d - %s\n", i, map[i]);
+// 		i++;
+// 	}
+// }
+
+//   TEMP
+// void	print_line(char *line)
+// {
+// 	int	i;
+// 
+//	i = 0;
+// 	printf("len: %zu line: %s\n", ft_strlen(line), line);
+// 	while (i < 37)
+// 	{
+// 		printf("%d: %c - %d\n", i, line[i], line[i]);
+// 		// write(1,&line[i], 1);
+// 		// printf("-%d\n", line[i]);
+// 		i++;
+// 	}
+// 	write(1, "\n", 1);
+// }
