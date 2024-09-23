@@ -8,6 +8,8 @@ FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
 
 INCLUDE := -Iincludes -Imlx
 
+LIBFT = Libft/libft.a
+
 PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
 			parsing/parsing_texture.c parsing/parsing_color.c parsing/parsing_map.c\
 			parsing/parsing_floodfill.c parsing/create_map.c
@@ -35,7 +37,7 @@ NEW_SRC := cub3D.c \
 
 OBJ := $(GNL_SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(NEW_SRC:.c=.o) $(PARSING_SRC:.c=.o)
 
-all: $(NAME)
+all: $(LIBFT) $(NAME)
 
 bonus: all
 
@@ -46,6 +48,9 @@ $(NAME) : $(OBJ)
 	@$(CC) $(FLAGS) $(INCLUDE) $^ $(FRAMEWORKS) -o $@
 	@echo "$(GREEN)Compiled successfully$(NC)"
 
+$(LIBFT):
+	@$(MAKE) -C Libft
+
 %.o: %.c
 	@$(CC) $(FLAGS) $(INCLUDE) -c $< -o $@
 
@@ -53,9 +58,11 @@ test:
 	cc -Wall -Werror -Wextra $(LIBFT_SRC) $(GNL_SRC) cub3D.c $(PARSING_SRC) init/init.c -o test
 
 clean :
+	@$(MAKE) -C Libft clean
 	@find . -name "*.o" -type f -delete
 
 fclean : clean
+	@$(MAKE) -C Libft fclean
 	@rm -rf $(NAME)
 
 re : fclean all
