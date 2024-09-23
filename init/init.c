@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/14 22:00:15 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:11:43 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,9 @@ void	init_view(t_view *view)
 void	init_map(t_map *map)
 {
 	map->map = NULL;
-	map->in_map = false;
+	map->ff_map = NULL;
+	map->start_pos.x = -1;
+	map->start_pos.y = -1;
 	map->map_x = 0;
 	map->map_y = 0;
 	map->color = 0;
@@ -50,14 +52,6 @@ void	init_ray(t_ray *ray)
 	ray->x_max = 0;
 	ray->y_zero = 0;
 	ray->y_max = 0;
-}
-
-void	init_paths(t_paths *paths)
-{
-	paths->no_path = "./textures/pics/bluestone.png";
-	paths->so_path = "./textures/pics/greystone.png";
-	paths->we_path = "./textures/pics/purplestone.png";
-	paths->ea_path = "./textures/pics/redbrick.png";
 }
 
 void	init_textures(t_textures *textures)
@@ -95,14 +89,9 @@ int	init(t_game *game)
 	if (!game->ray)
 		return (1);
 	init_ray(game->ray);
-	game->paths = (t_paths *)malloc(sizeof(t_paths));
-	if (!game->paths)
-		return (1);
-	init_paths(game->paths);
 	game->textures = (t_textures *)malloc(sizeof(t_textures));
 	if (!game->textures)
 		return (1);
-	load_textures(game);
 	init_textures(game->textures);
 	return (0);
 }

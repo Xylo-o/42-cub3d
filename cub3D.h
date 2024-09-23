@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/16 18:11:14 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:20:43 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,12 @@
 #define screen_h 1200
 #define screen_w 1200
 
+typedef struct s_vec2
+{
+	int				x;
+	int				y;	
+}					t_vec2;
+
 typedef struct s_view
 {
 	double			cam_x;
@@ -46,7 +52,8 @@ typedef struct s_view
 typedef struct s_map
 {
 	char			**map;
-	bool			in_map;
+	char			**ff_map;
+	t_vec2			start_pos;
 	int				map_width;
 	int				map_height;
 	int				map_x;
@@ -71,14 +78,6 @@ typedef struct s_ray
 	double			y_max;
 }					t_ray;
 
-typedef struct s_paths
-{
-	char			*no_path;
-	char			*so_path;
-	char			*we_path;
-	char			*ea_path;
-}					t_paths;
-
 typedef struct s_textures
 {
 	mlx_texture_t	*no_texture;
@@ -100,7 +99,6 @@ typedef struct s_game
 	t_view			*view;
 	t_map			*map;
 	t_ray			*ray;
-	t_paths			*paths;
 	t_textures		*textures;
 	mlx_image_t		*buffer;
 	char			*my_error;
@@ -120,19 +118,29 @@ void				case_key_right(t_game *game, double rot_speed,
 void				check_input(t_game *game, int argc, char *argv[]);
 void				parser(t_game *game, char **argv);
 bool				is_texture(t_game *game, char *line);
-void				check_textures(t_game *game, char *line);
 bool				is_color(t_game *game, char *line);
-void				check_color(t_game *game, char *line);
 bool				is_map(t_game *game, char *line);
-void				check_map(t_game *game, int fd);
-void				terminate(t_game *game);
 bool				is_empty_line(char *line);
-void				print_map(char **map);
+bool				is_player_char(char c);
+void				check_textures(t_game *game, char *line);
+void				check_color(t_game *game, char *line);
+void				check_map_part(t_game *game, int fd);
+void				check_mapchars(t_game *game, char **map);
+void				set_start_pos(t_game *game, t_map *map, int i, int j);
 void				ft_replace_char(char **line, char c1, char c2);
+void				flood_fill(t_game *game, int x, int y);
+void				create_map(t_game *game, char *buf);
+char				*load_map(t_game *game, char *line);
+char				**copy_map(char **map);
+
+//TERMINATE
+void				terminate(t_game *game);
+void				free_array(char **str);
+void				free_game(t_game *game);
+void				free_textures(t_game *game);
 
 // INIT
 void				init_view(t_view *view);
-void				init_paths(t_paths *paths);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
 void				init_textures(t_textures *textures);

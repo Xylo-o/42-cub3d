@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:49:37 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/23 17:08:51 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/23 17:11:49 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,7 @@ bool	is_map(t_game *game, char *line)
 	while (ft_isspace(line[i]))
 		i++;
 	if (line[i] == '1' || line[i] == '0')
-	{
-		game->map->in_map = true;
 		return (true);
-	}
 	return (false);
 }
 
