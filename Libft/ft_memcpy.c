@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/07 13:38:19 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/01/24 19:49:47 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	size_t				count;
+	unsigned char		*ptr_dst;
+	unsigned const char	*ptr_src;
 
-char	*get_next_line(int const fd);
-
-#endif
+	ptr_dst = dst;
+	ptr_src = src;
+	count = 0;
+	if (ptr_dst == NULL && ptr_src == NULL)
+		return (NULL);
+	while (count < n)
+	{
+		ptr_dst[count] = ptr_src[count];
+		count++;
+	}
+	return (dst);
+}

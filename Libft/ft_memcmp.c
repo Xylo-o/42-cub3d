@@ -1,35 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/10 13:06:43 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/01/24 19:49:42 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	size_t				count;
+	unsigned const char	*ptr1;
+	unsigned const char	*ptr2;
 
-char	*get_next_line(int const fd);
-
-#endif
+	count = 0;
+	ptr1 = s1;
+	ptr2 = s2;
+	while (count < n)
+	{
+		if (ptr1[count] == ptr2[count])
+			count++;
+		else if (ptr1[count] != ptr2[count])
+			return (ptr1[count] - ptr2[count]);
+	}
+	return (0);
+}

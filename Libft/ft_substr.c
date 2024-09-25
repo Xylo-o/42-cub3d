@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/16 13:52:39 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/01/24 19:51:31 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	char		*sub;
+	size_t		s_len;
 
-char	*get_next_line(int const fd);
-
-#endif
+	if (s == NULL)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (start + len > s_len)
+		len = s_len - start;
+	sub = malloc(len + 1);
+	if (sub != NULL)
+	{
+		ft_strlcpy(sub, s + start, len + 1);
+		sub[len] = '\0';
+	}
+	return (sub);
+}

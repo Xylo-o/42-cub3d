@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/16 11:00:20 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/01/24 19:48:21 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+void	*ft_calloc(size_t count, size_t size)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	void	*ptr;
+	size_t	full;
 
-char	*get_next_line(int const fd);
-
-#endif
+	full = count * size;
+	ptr = malloc(full);
+	if (ptr != NULL)
+	{
+		ft_memset(ptr, 0, full);
+		return (ptr);
+	}
+	else
+		return (NULL);
+}

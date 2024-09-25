@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/17 16:21:31 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/01/24 19:51:26 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+char	*ft_strtrim(char const *s1, char const *set)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	size_t	len;
+	size_t	front;
+	char	*ptr;
 
-char	*get_next_line(int const fd);
-
-#endif
+	len = ft_strlen(s1);
+	front = 0;
+	if (set[0] == '\0' || s1[0] == '\0')
+		return (ft_strdup(s1));
+	while (ft_strchr(set, s1[front]) != 0)
+		front++;
+	while (ft_strrchr(set, s1[len - 1]) != 0)
+		len--;
+	ptr = ft_substr(s1, front, len - front);
+	return (ptr);
+}

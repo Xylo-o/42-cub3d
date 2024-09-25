@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/22 18:35:15 by sgeiger           #+#    #+#             */
+/*   Updated: 2023/10/22 18:53:35 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+void	ft_striteri(char *s, void (*f)(unsigned int, char *))
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	unsigned int	count;
+	unsigned int	len;
 
-char	*get_next_line(int const fd);
-
-#endif
+	count = 0;
+	len = ft_strlen(s);
+	while (count < len)
+	{
+		f(count, &s[count]);
+		count++;
+	}
+}

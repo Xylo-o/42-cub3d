@@ -3,107 +3,89 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/07 19:29:38 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:07:21 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:43:11 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_read_line(char *start_line)
+static char	*strprep(t_gnl *s1)
 {
-	int		i;
-	char	*line;
+	char	*rline;
+	size_t	len;
 
-	if (!start_line || !start_line[0])
-		return (NULL);
-	i = 0;
-	while (start_line[i] && start_line[i] != '\n')
-		i++;
-	if (start_line[i] == '\n')
-		i++;
-	line = (char *)malloc(sizeof(char) * (i + 1));
-	if (!line)
-		return (NULL);
-	i = 0;
-	while (start_line[i] && start_line[i] != '\n')
+	if (s1->br < 1)
 	{
-		line[i] = start_line[i];
-		i++;
+		if (s1->line && s1->line[0] != '\0' && s1->br >= 0)
+		{
+			len = ft_strlen(s1->line);
+			rline = ft_substr(s1->line, 0, len);
+			if (rline == NULL)
+				return (NULL);
+			rline[len] = '\0';
+			return (rline);
+		}
+		else
+			return (NULL);
 	}
-	if (start_line[i] == '\n')
-		line[i++] = '\n';
-	line[i] = '\0';
-	return (line);
+	s1->nl = ft_strchr(s1->line, '\n');
+	len = (ft_strlen(s1->line) - ft_strlen(s1->nl) + 1);
+	rline = ft_substr(s1->line, 0, len);
+	if (rline == NULL)
+		return (NULL);
+	rline[len] = '\0';
+	return (rline);
 }
 
-char	*ft_new_start(char *start)
+static int	stradd_nl0(t_gnl *s1, char *buf, int fd)
 {
-	int		i;
-	int		j;
-	char	*buff;
+	char	*temp;
 
-	i = 0;
-	while (start[i] && start[i] != '\n')
-		i++;
-	if (start[i] == '\0')
+	while ((s1->br > 0) && (!ft_strchr(s1->line, '\n')))
 	{
-		free(start);
-		return (NULL);
-	}
-	i = i + (start[i] == '\n');
-	buff = (char *)malloc(sizeof(char) *(ft_strlen(start) + 1));
-	if (!buff)
-		return (NULL);
-	j = 0;
-	while (start[i + j])
-	{
-		buff[j] = start[i + j];
-		j++;
-	}
-	buff[j] = '\0';
-	free(start);
-	return (buff);
-}
-
-int	read_buffer(char *buffer, char **rem, int fd)
-{
-	int			bytes_read;
-	char		*merged_str;
-
-	bytes_read = 1;
-	while (!(ft_strchr(*rem, '\n')) && bytes_read != 0)
-	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read == -1)
+		temp = ft_strjoin(s1->line, buf);
+		if (!temp)
+			return (1);
+		free(s1->line);
+		s1->line = temp;
+		if (ft_strchr(s1->line, '\n'))
+		{
+			s1->nl = ft_strchr(buf, '\n');
+			ft_memmove(buf, s1->nl + 1, ft_strlen(s1->nl));
+			buf[ft_strlen(buf)] = '\0';
 			return (0);
-		buffer[bytes_read] = '\0';
-		merged_str = ft_strjoin(*rem, buffer);
-		free(*rem);
-		*rem = merged_str;
+		}
+		s1->br = read(fd, buf, BUFFER_SIZE);
+		if (s1->br < 0)
+			return (buf[0] = '\0', 0);
+		buf[s1->br] = '\0';
 	}
-	return (1);
+	return (0);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*rem;
-	char		*buffer;
+	static char	buf[BUFFER_SIZE + 1];
+	char		*line;
+	t_gnl		s1;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buffer = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	if (!rem)
-		rem = ft_strdup("");
-	if (read_buffer(buffer, &rem, fd) == 0)
-		return (free(rem), free(buffer), buffer = NULL, rem = NULL);
-	free(buffer);
-	buffer = NULL;
-	buffer = ft_read_line(rem);
-	rem = ft_new_start(rem);
-	return (buffer);
+	s1.line = NULL;
+	s1.br = 1;
+	if (fd < 0 || BUFFER_SIZE < 1)
+		return (0);
+	if (s1.line == NULL)
+	{
+		s1.line = (char *)malloc(sizeof(char));
+		if (!s1.line)
+			return (NULL);
+		s1.line[0] = '\0';
+	}
+	if (stradd_nl0(&s1, buf, fd))
+		return (free(s1.line), NULL);
+	line = strprep(&s1);
+	free(s1.line);
+	return (line);
 }

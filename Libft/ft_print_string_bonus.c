@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_print_string_bonus.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/11/01 13:26:40 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/02/18 18:50:25 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+int	ft_print_string_bonus(char *str)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	int	count;
 
-char	*get_next_line(int const fd);
-
-#endif
+	count = 6;
+	if (str == NULL)
+	{
+		count = write(1, "(null)", count);
+		return (count);
+	}
+	count = ft_strlen(str);
+	count = write(1, str, count);
+	return (count);
+}

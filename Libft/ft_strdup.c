@@ -1,35 +1,43 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/10/16 13:16:05 by sgeiger           #+#    #+#             */
+/*   Updated: 2023/10/24 15:23:15 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+static char	*ft_strcpy(char *dest, const char *src)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	int	count;
 
-char	*get_next_line(int const fd);
+	count = 0;
+	while (src[count] != '\0')
+	{
+		dest[count] = src[count];
+		count++;
+	}
+	dest[count] = '\0';
+	return (dest);
+}
 
-#endif
+char	*ft_strdup(const char *s1)
+{
+	size_t		size;
+	char		*ptr;
+
+	size = ft_strlen(s1);
+	ptr = malloc(size + 1);
+	if (ptr != NULL)
+	{
+		ft_strcpy(ptr, s1);
+		return (ptr);
+	}
+	else
+		return (NULL);
+}

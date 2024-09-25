@@ -1,35 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   ft_print_hexa_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/09 15:16:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:44:25 by sgeiger          ###   ########.fr       */
+/*   Created: 2023/11/02 16:50:45 by sgeiger           #+#    #+#             */
+/*   Updated: 2024/02/18 18:50:29 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#include "libft.h"
 
-# include "../Libft/libft.h"
-# include <fcntl.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
-
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 100
-# endif
-
-typedef struct s_gnl
+int	ft_print_hexa_bonus(unsigned long n, int flag)
 {
-	char	*line;
-	int		br;
-	char	*nl;
-}	t_gnl;
+	char	*str;
+	int		count;
 
-char	*get_next_line(int const fd);
-
-#endif
+	str = ft_hexa_bonus(n, flag);
+	if (str == NULL)
+		return (-1);
+	count = ft_print_string_bonus(str);
+	free(str);
+	if (count == -1)
+		return (-1);
+	return (count);
+}
