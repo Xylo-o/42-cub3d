@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/08 16:25:34 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/16 11:03:14 by adprzyby         ###   ########.fr       */
+/*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
+/*   Updated: 2024/09/25 15:09:42 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,22 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <time.h>
+# include <errno.h>
 
-# define mapWidth 24
-# define mapHeight 24
-# define TEX_WIDTH 64
-# define TEX_HEIGHT 64
-# define SCREEN_H 1200
-# define SCREEN_W 1600
+#endif
+
+#define mapWidth 24
+#define mapHeight 24
+#define tex_width 64
+#define tex_height 64
+#define screen_h 1200
+#define screen_w 1200
+
+typedef struct s_vec2
+{
+	int				x;
+	int				y;	
+}					t_vec2;
 
 typedef struct s_view
 {
@@ -42,6 +51,11 @@ typedef struct s_view
 
 typedef struct s_map
 {
+	char			**map;
+	char			**ff_map;
+	t_vec2			start_pos;
+	int				map_width;
+	int				map_height;
 	int				map_x;
 	int				map_y;
 	int				side;
@@ -87,6 +101,7 @@ typedef struct s_game
 	t_ray			*ray;
 	t_textures		*textures;
 	mlx_image_t		*buffer;
+	char			*my_error;
 }					t_game;
 
 // CONTROLS
@@ -98,14 +113,37 @@ void				case_key_rot_left(t_game *game, double rot_speed,
 						double old_dir_x, double old_cam_x);
 void				case_key_rot_right(t_game *game, double rot_speed,
 						double old_dir_x, double old_cam_x);
-void				case_key_left(t_game *game, double mv_speed);
-void				case_key_right(t_game *game, double mv_speed);
+
+//PARSER
+void				check_input(t_game *game, int argc, char *argv[]);
+void				parser(t_game *game, char **argv);
+bool				is_texture(t_game *game, char *line);
+bool				is_color(t_game *game, char *line);
+bool				is_map(t_game *game, char *line);
+bool				is_empty_line(char *line);
+bool				is_player_char(char c);
+void				check_textures(t_game *game, char *line);
+void				check_color(t_game *game, char *line);
+void				check_map_part(t_game *game, int fd);
+void				check_mapchars(t_game *game, char **map);
+void				set_start_pos(t_game *game, t_map *map, int i, int j);
+void				ft_replace_char(char **line, char c1, char c2);
+void				flood_fill(t_game *game, int x, int y);
+void				create_map(t_game *game, char *buf);
+char				*load_map(t_game *game, char *line);
+char				**copy_map(char **map);
+
+//TERMINATE
+void				terminate(t_game *game);
+void				free_array(char **str);
+void				free_game(t_game *game);
+void				free_textures(t_game *game);
 
 // INIT
 void				init_view(t_view *view);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
-void				load_textures(t_game *game);
+void				init_textures(t_textures *textures);
 int					init(t_game *game);
 
 // RENDER

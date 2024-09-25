@@ -1,19 +1,20 @@
 NAME := cub3D
 CC := gcc
 FRAMEWORKS := MLX/libmlx42.a -lglfw -framework Cocoa -framework OpenGL -framework IOKit
-FLAGS := -Wall -Wextra -Werror  -Iincludes -Imlx
 
-# PARSING_SRC := parsing/data_parsing.c parsing/file_data.c parsing/file_extension.c parsing/file_parser.c\
-# 				parsing/textures_parsing.c 
+FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
+
+INCLUDE := -Iincludes -Imlx
+
+LIBFT = Libft/libft.a
+
+PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
+			parsing/parsing_texture.c parsing/parsing_color.c parsing/parsing_map.c\
+			parsing/parsing_floodfill.c parsing/create_map.c
 
 GNL_SRC := get_next_line/get_next_line.c
 
-LIBFT_SRC := Libft/ft_memset.c Libft/ft_strcmp.c Libft/ft_strdel.c Libft/ft_strdup.c Libft/ft_strjoin.c\
-			Libft/ft_strlen.c Libft/ft_strncmp.c Libft/ft_strnew.c Libft/ft_strnstr.c Libft/ft_strrchr.c\
-			Libft/ft_strchr.c Libft/ft_strncpy.c  Libft/ft_strlcat.c Libft/ft_strndup.c Libft/ft_memalloc.c\
-			Libft/ft_strsub.c Libft/ft_strlcpy.c
-
-SRC := cub3D.c \
+NEW_SRC := cub3D.c \
 		maps/map.c \
 		init/init.c \
 		render/raycast1.c \
@@ -30,7 +31,7 @@ $(OBJDIR)%.o: %.c
 	@mkdir -p $(@D)
 	@$(CC) $(FLAGS) -c $< -o $@
 
-all: start_compile $(NAME)
+all: $(LIBFT) $(NAME)
 
 bonus: all
 
@@ -40,6 +41,9 @@ start_compile:
 $(NAME) : $(OBJ)
 	@$(CC) $(FLAGS) $^ $(FRAMEWORKS) -o $@
 	@echo "$(GREEN)Compiled successfully$(NC)"
+
+$(LIBFT):
+	@$(MAKE) -C Libft
 
 %.o: %.c
 	@$(CC) $(FLAGS) -c $< -o $@
@@ -54,7 +58,7 @@ fclean :
 
 re : fclean all
 
-.PHONY: all bonus clean fclean re start_compile
+.PHONY: all bonus clean fclean re
 
 GREEN := \033[0;32m
 BLUE := \033[0;34m

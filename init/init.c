@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/16 11:02:57 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/25 14:54:57 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,14 +20,18 @@ void	init_view(t_view *view)
 	view->cam_y = 0.66;
 	view->dir_x = 1;
 	view->dir_y = 0;
-	view->pos_x = 22;
-	view->pos_y = 11.5;
+	view->pos_x = 5;
+	view->pos_y = 5;
 	view->step_x = 0;
 	view->step_y = 0;
 }
 
 void	init_map(t_map *map)
 {
+	map->map = NULL;
+	map->ff_map = NULL;
+	map->start_pos.x = -1;
+	map->start_pos.y = -1;
 	map->map_x = 0;
 	map->map_y = 0;
 	map->side = 0;
@@ -49,8 +53,21 @@ void	init_ray(t_ray *ray)
 	ray->y_max = 0;
 }
 
+void	init_textures(t_textures *textures)
+{
+	textures->no_texture = NULL;
+	textures->so_texture = NULL;
+	textures->ea_texture = NULL;
+	textures->we_texture = NULL;
+	textures->ceiling_hex = -1;
+	textures->floor_hex = -1;
+}
+
 int	init(t_game *game)
 {
+	game->x_tex = 0;
+	game->y_tex = 0;
+	game->my_error = NULL;
 	if (!game)
 		return (1);
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
@@ -74,6 +91,6 @@ int	init(t_game *game)
 	game->textures = (t_textures *)malloc(sizeof(t_textures));
 	if (!game->textures)
 		return (1);
-	load_textures(game);
+	init_textures(game->textures);
 	return (0);
 }
