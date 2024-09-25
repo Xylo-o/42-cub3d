@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 14:54:57 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:22:31 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,14 @@ void	init_textures(t_textures *textures)
 	textures->so_texture = NULL;
 	textures->ea_texture = NULL;
 	textures->we_texture = NULL;
-	textures->ceiling_hex = -1;
-	textures->floor_hex = -1;
+	textures->ceiling_color = -1;
+	textures->floor_color = -1;
+	textures->x_tex = 0;
+	textures->y_tex = 0;
 }
 
 int	init(t_game *game)
 {
-	game->x_tex = 0;
-	game->y_tex = 0;
 	game->my_error = NULL;
 	if (!game)
 		return (1);

@@ -14,7 +14,7 @@ PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
 
 GNL_SRC := get_next_line/get_next_line.c
 
-NEW_SRC := cub3D.c \
+SRC := cub3D.c \
 		maps/map.c \
 		init/init.c \
 		render/raycast1.c \
@@ -25,7 +25,7 @@ NEW_SRC := cub3D.c \
 
 OBJDIR := obj/
 
-OBJ := $(addprefix $(OBJDIR),$(GNL_SRC:.c=.o) $(LIBFT_SRC:.c=.o) $(SRC:.c=.o))
+OBJ := $(addprefix $(OBJDIR),$(GNL_SRC:.c=.o) $(SRC:.c=.o) $(PARSING_SRC:.c=.o))
 
 $(OBJDIR)%.o: %.c
 	@mkdir -p $(@D)
@@ -39,7 +39,7 @@ start_compile:
 	@echo "$(BLUE)Compiling...$(NC)"
 
 $(NAME) : $(OBJ)
-	@$(CC) $(FLAGS) $^ $(FRAMEWORKS) -o $@
+	@$(CC) $(FLAGS) $(INCLUDE) $(LIBFT) $^ $(FRAMEWORKS) -o $@
 	@echo "$(GREEN)Compiled successfully$(NC)"
 
 $(LIBFT):
@@ -49,12 +49,22 @@ $(LIBFT):
 	@$(CC) $(FLAGS) -c $< -o $@
 
 clean :
-	@rm -rf $(OBJDIR)
+	@$(MAKE) -C Libft clean
+	@rm -rf $(OBJDIR) 
 	@echo "$(GRAY)Object files cleaned$(NC)"
 
-fclean :
-	@rm -rf $(NAME) $(OBJDIR)
+fclean : clean
+	@$(MAKE) -C Libft
+	@rm -rf $(NAME) Libft $(OBJDIR)
 	@echo "$(RED)Program files cleaned$(NC)"
+
+# clean :
+# 	@$(MAKE) -C Libft clean
+# 	@find . -name "*.o" -type f -delete
+
+# fclean : clean
+# 	@$(MAKE) -C Libft fclean
+# 	@rm -rf $(NAME)
 
 re : fclean all
 

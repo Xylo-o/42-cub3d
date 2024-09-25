@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/25 15:09:42 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/25 15:24:24 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,10 @@
 
 #define mapWidth 24
 #define mapHeight 24
-#define tex_width 64
-#define tex_height 64
-#define screen_h 1200
-#define screen_w 1200
+#define TEX_WIDTH 64
+#define TEX_HEIGHT 64
+#define SCREEN_H 1200
+#define SCREEN_W 1200
 
 typedef struct s_vec2
 {
@@ -109,6 +109,8 @@ void				key_binds(void *param);
 void				case_esc(t_game *game);
 void				case_key_back(t_game *game, double mv_speed);
 void				case_key_forward(t_game *game, double mv_speed);
+void				case_key_left(t_game *game, double mv_speed);
+void				case_key_right(t_game *game, double mv_speed);
 void				case_key_rot_left(t_game *game, double rot_speed,
 						double old_dir_x, double old_cam_x);
 void				case_key_rot_right(t_game *game, double rot_speed,
@@ -162,5 +164,3 @@ void				calculate_hit(t_game *game);
 void				calculate_ray(t_game *game);
 int					calculate_draw_end(int wall_height);
 int					calculate_draw_start(int wall_height);
-
-#endif
