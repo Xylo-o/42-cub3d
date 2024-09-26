@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 12:53:39 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:10:49 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/27 00:17:47 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,19 +18,12 @@ int	main(int argc, char *argv[])
 
 	errno = 0;
 	game = (t_game *)malloc(sizeof (t_game));
-	if (init(game) == 1)
-		return (1);
+	init(game);
 	check_input(game, argc, argv);
 	parser(game, argv);
 	mlx_loop_hook(game->mlx, &key_binds, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);
-	if (game->map->map)
-		free_array(game->map->map);
-	if (game->map->ff_map)
-		free_array(game->map->ff_map);
-	free_textures(game);
-	free_game(game);
-	free(game);
+	free_up(game);
 	return (0);
 }

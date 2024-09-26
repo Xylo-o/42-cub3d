@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   raycast1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/26 15:37:07 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 23:53:07 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+#include <stdint.h>
 
 void	render_structures(t_game *game)
 {
@@ -49,7 +50,8 @@ void	put_image(t_game *game)
 void	draw_walls(t_game *game, int x, int draw_end,
 		int wall_height)
 {
-	int	y;
+	uint32_t	new_color;
+	int			y;
 
 	y = calculate_draw_start(wall_height);
 	choose_texture(game);
@@ -64,7 +66,11 @@ void	draw_walls(t_game *game, int x, int draw_end,
 			game->textures->color = (uint32_t *)(game->textures->tmp->pixels
 					+ (game->textures->y_tex * TEX_WIDTH
 						+ game->textures->x_tex) * sizeof(uint32_t));
-			mlx_put_pixel(game->buffer, x, y, *game->textures->color);
+			new_color = ((*game->textures->color & 0xFF000000) >> 24)
+				| ((*game->textures->color & 0x00FF0000) >> 8)
+				| ((*game->textures->color & 0x0000FF00) << 8)
+				| ((*game->textures->color & 0x000000FF) << 24);
+			mlx_put_pixel(game->buffer, x, y, new_color);
 		}
 		y++;
 	}

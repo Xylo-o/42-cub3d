@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:49:37 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/23 17:11:49 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/26 19:24:08 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void	set_start_pos(t_game *game, t_map *map, int i, int j)
 	{
 		map->start_pos.x = j;
 		map->start_pos.y = i;
+		map->start_orientation = map->map[i][j];
 	}
 	else
 	{

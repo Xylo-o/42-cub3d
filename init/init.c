@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/26 16:56:50 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 00:05:24 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,32 +65,31 @@ void	init_textures(t_textures *textures)
 	textures->y_tex = 0;
 }
 
-int	init(t_game *game)
+void	init(t_game *game)
 {
-	game->my_error = NULL;
 	if (!game)
-		return (1);
+		terminate(game);
+	game->my_error = NULL;
 	game->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
 	if (!game->mlx)
-		return (1);
+		terminate(game);
 	game->buffer = mlx_new_image(game->mlx, SCREEN_W, SCREEN_H);
 	if (!game->buffer)
-		return (1);
+		terminate(game);
 	game->view = (t_view *)malloc(sizeof(t_view));
 	if (!game->view)
-		return (1);
+		terminate(game);
 	init_view(game->view);
 	game->map = (t_map *)malloc(sizeof(t_map));
 	if (!game->map)
-		return (1);
+		terminate(game);
 	init_map(game->map);
 	game->ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!game->ray)
-		return (1);
+		terminate(game);
 	init_ray(game->ray);
 	game->textures = (t_textures *)malloc(sizeof(t_textures));
 	if (!game->textures)
-		return (1);
+		terminate(game);
 	init_textures(game->textures);
-	return (0);
 }

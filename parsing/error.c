@@ -6,11 +6,12 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:52:08 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/23 16:56:20 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 00:22:29 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+#include <unistd.h>
 
 void	free_textures(t_game *game)
 {
@@ -51,17 +52,7 @@ void	free_array(char **str)
 	free(str);
 }
 
-void	ft_mlx_error(void)
-{
-	size_t		len;
-	const char	*str;
-
-	str = mlx_strerror(mlx_errno);
-	len = ft_strlen(str);
-	write(STDOUT_FILENO, &str, len);
-}
-
-void	terminate(t_game *game)
+void	free_up(t_game *game)
 {
 	if (game->map->map)
 		free_array(game->map->map);
@@ -69,6 +60,16 @@ void	terminate(t_game *game)
 		free_array(game->map->ff_map);
 	free_textures(game);
 	free_game(game);
+	free(game);
+}
+
+void	terminate(t_game *game)
+{
+	size_t		len;
+	const char	*str;
+
+	len = 0;
+	str = NULL;
 	if (game->my_error != NULL)
 	{
 		write(STDERR_FILENO, "Error: ", 7);
@@ -76,9 +77,13 @@ void	terminate(t_game *game)
 		write(STDERR_FILENO, "\n", 1);
 	}
 	else if (mlx_errno != 0)
-		ft_mlx_error();
+	{
+		str = mlx_strerror(mlx_errno);
+		len = ft_strlen(str);
+		write(STDERR_FILENO, &str, len);
+	}
 	else if (errno != 0)
 		perror("Error");
-	free(game);
+	free_up(game);
 	exit(EXIT_FAILURE);
 }

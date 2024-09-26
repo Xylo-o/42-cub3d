@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/26 16:50:11 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 00:13:33 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,10 @@
 # include <time.h>
 # include <errno.h>
 
-#endif
-
-#define TEX_WIDTH 64
-#define TEX_HEIGHT 64
-#define SCREEN_H 1200
-#define SCREEN_W 1200
+# define TEX_WIDTH 64
+# define TEX_HEIGHT 64
+# define SCREEN_H 1200
+# define SCREEN_W 1200
 
 typedef struct s_vec2
 {
@@ -52,6 +50,7 @@ typedef struct s_map
 	char			**map;
 	char			**ff_map;
 	t_vec2			start_pos;
+	char			start_orientation;
 	int				map_width;
 	int				map_height;
 	int				map_x;
@@ -138,13 +137,14 @@ void				terminate(t_game *game);
 void				free_array(char **str);
 void				free_game(t_game *game);
 void				free_textures(t_game *game);
+void				free_up(t_game *game);
 
 // INIT
 void				init_view(t_view *view);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
 void				init_textures(t_textures *textures);
-int					init(t_game *game);
+void				init(t_game *game);
 
 // RENDER
 void				render_structures(t_game *game);
@@ -162,3 +162,5 @@ void				calculate_hit(t_game *game);
 void				calculate_ray(t_game *game);
 int					calculate_draw_end(int wall_height);
 int					calculate_draw_start(int wall_height);
+
+#endif
