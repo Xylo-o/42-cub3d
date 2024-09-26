@@ -1,12 +1,14 @@
 NAME := cub3D
-CC := gcc
-FRAMEWORKS := MLX/libmlx42.a -lglfw -framework Cocoa -framework OpenGL -framework IOKit
+CC := cc
+FRAMEWORKS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
 FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
 
 INCLUDE := -Iincludes -Imlx
 
 LIBFT = Libft/libft.a
+LIBMLX := MLX42
+MLX_LIB := $(LIBMLX)/build/libmlx42.a
 
 PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
 			parsing/parsing_texture.c parsing/parsing_color.c parsing/parsing_map.c\
@@ -28,9 +30,9 @@ OBJ := $(addprefix $(OBJDIR),$(GNL_SRC:.c=.o) $(SRC:.c=.o) $(PARSING_SRC:.c=.o))
 
 $(OBJDIR)%.o: %.c
 	@mkdir -p $(@D)
-	@$(CC) $(FLAGS) -c $< -o $@
+	@$(CC) $(FLAGS) -I $(LIBMLX)/include -c $< -o $@
 
-all: $(LIBFT) $(NAME)
+all: $(LIBFT) $(MLX_LIB) $(NAME)
 
 bonus: all
 
@@ -38,14 +40,16 @@ start_compile:
 	@echo "$(BLUE)Compiling...$(NC)"
 
 $(NAME) : $(OBJ)
-	@$(CC) $(FLAGS) $(INCLUDE) $(LIBFT) $^ $(FRAMEWORKS) -o $@
+	@$(CC) $(FLAGS) $(INCLUDE) $(LIBFT) $(MLX_LIB) $^ $(FRAMEWORKS) -o $@
 	@echo "$(GREEN)Compiled successfully$(NC)"
 
 $(LIBFT):
 	@$(MAKE) -C Libft
 
-%.o: %.c
-	@$(CC) $(FLAGS) -c $< -o $@
+$(MLX_LIB):
+	@git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX)
+	@cmake $(LIBMLX) -B $(LIBMLX)/build
+	@cmake --build $(LIBMLX)/build -j4
 
 clean :
 	@$(MAKE) -C Libft clean
@@ -54,7 +58,7 @@ clean :
 
 fclean : clean
 	@$(MAKE) -C Libft fclean
-	@rm -rf $(NAME) $(OBJDIR)
+	@rm -rf $(NAME) $(LIBMLX)
 	@echo "$(RED)Program files cleaned$(NC)"
 
 # clean :

@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/27 00:13:33 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 01:05:15 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define CUB3D_H
 
 # include "Libft/libft.h"
-# include "MLX/MLX42.h"
+# include "MLX42/include/MLX42/MLX42.h"
 # include "get_next_line/get_next_line.h"
 # include <math.h>
 # include <stdio.h>

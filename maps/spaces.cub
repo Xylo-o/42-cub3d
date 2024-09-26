@@ -1,13 +1,13 @@
  
   NO  ./textures/wood.png
-SO ./textures/colorstone.png
- 	WE  ./textures/redbrick.png
-EA      ./textures/mossy.png
+SO ./textures/bluestone.png
+ 	WE  ./textures/purplestone.png
+EA      ./textures/greystone.png
 
 
 
- F  220 , 100,0  
- C  225 , 30 , 0 
+ F  100 , 100,100  
+ C  0 , 30 , 250  
 
 
 
