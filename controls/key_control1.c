@@ -6,13 +6,11 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 12:57:46 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/16 10:51:01 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:37:42 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-extern int	worldMap[][mapHeight];
 
 void	key_binds(void *param)
 {

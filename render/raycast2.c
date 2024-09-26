@@ -6,16 +6,11 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:35:20 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:19:22 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:37:50 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-extern int	worldMap[][mapHeight];
-
-#define FLOOR_COLOR 0x00FF00FF
-#define CEILING_COLOR 0X0000FFFF
 
 void	draw_ceiling(t_game *game, int x, int draw_start)
 {
@@ -24,7 +19,7 @@ void	draw_ceiling(t_game *game, int x, int draw_start)
 	y = 0;
 	while (y < draw_start)
 	{
-		mlx_put_pixel(game->buffer, x, y, CEILING_COLOR);
+		mlx_put_pixel(game->buffer, x, y, game->textures->ceiling_color);
 		y++;
 	}
 }
@@ -39,7 +34,7 @@ void	draw_floor(t_game *game, int x, int draw_end)
 	while (y < SCREEN_H)
 	{
 		if (x >= 0 && x < SCREEN_W)
-			mlx_put_pixel(game->buffer, x, y, FLOOR_COLOR);
+			mlx_put_pixel(game->buffer, x, y, game->textures->floor_color);
 		y++;
 	}
 }

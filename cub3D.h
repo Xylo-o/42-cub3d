@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/25 15:24:24 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:34:28 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@
 
 #endif
 
-#define mapWidth 24
-#define mapHeight 24
 #define TEX_WIDTH 64
 #define TEX_HEIGHT 64
 #define SCREEN_H 1200
@@ -85,8 +83,8 @@ typedef struct s_textures
 	mlx_texture_t	*ea_texture;
 	mlx_texture_t	*tmp;
 	uint32_t		*color;
-	long			ceiling_color;
-	long			floor_color;
+	long		ceiling_color;
+	long		floor_color;
 	double			wall_x;
 	int				x_tex;
 	int				y_tex;

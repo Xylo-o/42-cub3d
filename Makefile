@@ -15,7 +15,6 @@ PARSING_SRC := parsing/parsing.c parsing/parsing_utils.c parsing/error.c\
 GNL_SRC := get_next_line/get_next_line.c
 
 SRC := cub3D.c \
-		maps/map.c \
 		init/init.c \
 		render/raycast1.c \
 		render/raycast2.c \
@@ -54,8 +53,8 @@ clean :
 	@echo "$(GRAY)Object files cleaned$(NC)"
 
 fclean : clean
-	@$(MAKE) -C Libft
-	@rm -rf $(NAME) Libft $(OBJDIR)
+	@$(MAKE) -C Libft fclean
+	@rm -rf $(NAME) $(OBJDIR)
 	@echo "$(RED)Program files cleaned$(NC)"
 
 # clean :

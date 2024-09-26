@@ -6,13 +6,11 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:18:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:19:22 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:51:33 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-extern int	worldMap[][mapHeight];
 
 int	calculate_draw_end(int wall_height)
 {
@@ -52,7 +50,7 @@ void	calculate_hit(t_game *game)
 			game->map->map_y += game->view->step_y;
 			game->map->side = 1;
 		}
-		if (worldMap[game->map->map_x][game->map->map_y] > 0)
+		if (game->map->map[game->map->map_x][game->map->map_y] != '0')
 			game->map->hit = 1;
 	}
 }

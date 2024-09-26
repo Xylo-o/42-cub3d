@@ -6,13 +6,11 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/25 15:23:31 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 15:37:07 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-
-extern int	worldMap[][mapHeight];
 
 void	render_structures(t_game *game)
 {
