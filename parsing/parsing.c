@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/04 16:37:49 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/25 17:07:38 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:00:36 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	are_values_set(t_textures *tex)
 	{
 		return (false);
 	}
-	if (tex->floor_color < 0 || tex->ceiling_color < 0)
+	if (tex->floor_color == 0 || tex->ceiling_color == 0)
 		return (false);
 	return (true);
 }

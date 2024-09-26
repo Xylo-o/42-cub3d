@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/26 15:34:28 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:50:11 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,8 @@ typedef struct s_textures
 	mlx_texture_t	*ea_texture;
 	mlx_texture_t	*tmp;
 	uint32_t		*color;
-	long		ceiling_color;
-	long		floor_color;
+	uint32_t		ceiling_color;
+	uint32_t		floor_color;
 	double			wall_x;
 	int				x_tex;
 	int				y_tex;

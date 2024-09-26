@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_color.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:11 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/26 15:35:31 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 17:13:38 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ bool	is_color(t_game *game, char *line)
 		i++;
 	if (ft_strlen(line + i) < 7)
 		return (false);
-	if (!ft_strncmp(line + i, "F ", 2) && game->textures->floor_color < 0)
+	if (!ft_strncmp(line + i, "F ", 2) && game->textures->floor_color == 0)
 		return (true);
-	else if (!ft_strncmp(line + i, "C ", 2) && game->textures->ceiling_color < 0)
+	else if (!ft_strncmp(line + i, "C ", 2) && game->textures->ceiling_color == 0)
 		return (true);
 	return (false);
 }
@@ -41,9 +41,9 @@ int	add_color(t_textures *tex, int nbr, char c)
 	{
 		rgb[2] = nbr;
 		if (c == 'F')
-			tex->floor_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+			tex->floor_color = (rgb[0] << 24) | (rgb[1] << 16) | (rgb[2] << 8) | 255;
 		else if (c == 'C')
-			tex->ceiling_color = (rgb[0] << 16) | (rgb[1] << 8) | rgb[2];
+			tex->ceiling_color = (rgb[0] << 24) | (rgb[1] << 16) | (rgb[2] << 8) | 255;
 		i = 0;
 		rgb[0] = -1;
 		rgb[1] = -1;

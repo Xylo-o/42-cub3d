@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/26 15:34:42 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/09/26 16:56:50 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,8 @@ void	init_textures(t_textures *textures)
 	textures->so_texture = NULL;
 	textures->ea_texture = NULL;
 	textures->we_texture = NULL;
-	textures->ceiling_color = -1;
-	textures->floor_color = -1;
+	textures->ceiling_color = 0;
+	textures->floor_color = 0;
 	textures->x_tex = 0;
 	textures->y_tex = 0;
 }
