@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/27 00:05:24 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 00:37:21 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	init_map(t_map *map)
 	map->ff_map = NULL;
 	map->start_pos.x = -1;
 	map->start_pos.y = -1;
+	map->start_orientation = 'X';
 	map->map_x = 0;
 	map->map_y = 0;
 	map->side = 0;

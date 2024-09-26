@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/23 17:04:42 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/23 17:05:41 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 00:42:55 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,5 +100,10 @@ void	create_map(t_game *game, char *buf)
 	fill_map(game, game->map->map);
 	check_mapchars(game, game->map->map);
 	game->map->ff_map = copy_map(game->map->map);
+	if (game->map->start_pos.x == -1 && game->map->start_pos.y == -1)
+	{
+		game->my_error = "Map does not contain N, S, W or E";
+		terminate(game);
+	}
 	flood_fill(game, game->map->start_pos.x, game->map->start_pos.y);
 }
