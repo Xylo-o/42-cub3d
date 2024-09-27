@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:51:24 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/27 22:22:52 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 22:42:28 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,7 @@
 void	case_esc(t_game *game)
 {
 	if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
-	{
-		mlx_terminate(game->mlx);
-		free_up(game);
-		exit(EXIT_SUCCESS);
-	}
+		mlx_close_window(game->mlx);
 }
 
 void	case_key_back(t_game *game, double mv_speed)

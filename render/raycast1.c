@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/26 23:53:07 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 22:51:46 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ void	choose_texture(t_game *game)
 	else if (game->map->side == 0 && game->ray->dir_x < 0)
 		game->textures->tmp = game->textures->so_texture;
 	else if (game->map->side == 1 && game->ray->dir_y > 0)
-		game->textures->tmp = game->textures->we_texture;
-	else
 		game->textures->tmp = game->textures->ea_texture;
+	else
+		game->textures->tmp = game->textures->we_texture;
 }
 
 void	check_if_side(t_game *game)
