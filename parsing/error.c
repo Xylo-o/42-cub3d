@@ -6,12 +6,11 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 15:52:08 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/27 00:22:29 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/27 22:22:03 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-#include <unistd.h>
 
 void	free_textures(t_game *game)
 {
@@ -23,8 +22,6 @@ void	free_textures(t_game *game)
 		mlx_delete_texture(game->textures->ea_texture);
 	if (game->textures->we_texture)
 		mlx_delete_texture(game->textures->we_texture);
-	if (game->mlx)
-		mlx_terminate(game->mlx);
 }
 
 void	free_game(t_game *game)
@@ -84,6 +81,8 @@ void	terminate(t_game *game)
 	}
 	else if (errno != 0)
 		perror("Error");
+	if (game->mlx)
+		mlx_terminate(game->mlx);
 	free_up(game);
 	exit(EXIT_FAILURE);
 }
