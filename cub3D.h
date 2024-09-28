@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/09/27 01:05:15 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:46:03 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,7 @@ void				free_textures(t_game *game);
 void				free_up(t_game *game);
 
 // INIT
-void				init_view(t_view *view);
+void				init_view(t_game *game);
 void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
 void				init_textures(t_textures *textures);

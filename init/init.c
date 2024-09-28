@@ -3,27 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/27 00:37:21 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:47:31 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
 
-void	init_view(t_view *view)
+void	init_view(t_game *game)
 {
-	if (!view)
+	if (!game->view)
 		return ;
-	view->cam_x = 0;
-	view->cam_y = 0.66;
-	view->dir_x = 1;
-	view->dir_y = 0;
-	view->pos_x = 5;
-	view->pos_y = 5;
-	view->step_x = 0;
-	view->step_y = 0;
+	game->view->cam_x = 0;
+	game->view->cam_y = 0.66;
+	if (game->map->start_orientation == 'N')
+	{
+		game->view->dir_x = -1;
+		game->view->dir_y = 0;
+	}
+	if (game->map->start_orientation == 'S')
+	{
+		game->view->dir_x = 1;
+		game->view->dir_y = 0;
+	}
+	if (game->map->start_orientation == 'W')
+	{
+		game->view->dir_x = 0;
+		game->view->dir_y = -1;
+	}
+	if (game->map->start_orientation == 'E')
+	{
+		game->view->dir_x = 0;
+		game->view->dir_y = 1;
+	}
+	game->view->pos_x = game->map->start_pos.x;
+	game->view->pos_y = game->map->start_pos.y;
+	game->view->step_x = 0;
+	game->view->step_y = 0;
 }
 
 void	init_map(t_map *map)
@@ -77,14 +95,14 @@ void	init(t_game *game)
 	game->buffer = mlx_new_image(game->mlx, SCREEN_W, SCREEN_H);
 	if (!game->buffer)
 		terminate(game);
-	game->view = (t_view *)malloc(sizeof(t_view));
-	if (!game->view)
-		terminate(game);
-	init_view(game->view);
 	game->map = (t_map *)malloc(sizeof(t_map));
 	if (!game->map)
 		terminate(game);
 	init_map(game->map);
+	game->view = (t_view *)malloc(sizeof(t_view));
+	if (!game->view)
+		terminate(game);
+	init_view(game);
 	game->ray = (t_ray *)malloc(sizeof(t_ray));
 	if (!game->ray)
 		terminate(game);
