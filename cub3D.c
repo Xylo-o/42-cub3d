@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/21 12:53:39 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/27 00:45:12 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/09/28 18:59:27 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	main(int argc, char *argv[])
 	init(game);
 	check_input(game, argc, argv);
 	parser(game, argv);
+	spawn_player(game);
 	mlx_loop_hook(game->mlx, &key_binds, game);
 	mlx_loop(game->mlx);
 	mlx_terminate(game->mlx);

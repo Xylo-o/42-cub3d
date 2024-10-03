@@ -18,6 +18,7 @@ GNL_SRC := get_next_line/get_next_line.c
 
 SRC := cub3D.c \
 		init/init.c \
+		init/init2.c \
 		render/raycast1.c \
 		render/raycast2.c \
 		render/raycast3.c \
@@ -60,14 +61,6 @@ fclean : clean
 	@$(MAKE) -C Libft fclean
 	@rm -rf $(NAME) $(LIBMLX)
 	@echo "$(RED)Program files cleaned$(NC)"
-
-# clean :
-# 	@$(MAKE) -C Libft clean
-# 	@find . -name "*.o" -type f -delete
-
-# fclean : clean
-# 	@$(MAKE) -C Libft fclean
-# 	@rm -rf $(NAME)
 
 re : fclean all
 
