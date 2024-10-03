@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 15:35:20 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/03 16:02:29 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/04 01:26:26 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void	calculate_cam(t_game *game, int x)
 {
 	double	camera_x;
 
-	camera_x = 2 * x / (double)SCREEN_W - 1;
+	camera_x = (2 * x / (double)SCREEN_W - 1) * game->view->aspect_ratio;
 	game->ray->dir_x = game->view->dir_x + game->view->cam_x * camera_x;
 	game->ray->dir_y = game->view->dir_y + game->view->cam_y * camera_x;
 	game->map->map_x = (int)game->view->pos_x;

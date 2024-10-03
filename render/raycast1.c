@@ -6,12 +6,11 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/27 22:51:46 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/04 01:32:18 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
-#include <stdint.h>
 
 void	render_structures(t_game *game)
 {

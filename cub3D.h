@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/10/03 18:23:05 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/04 01:30:42 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@
 # include <time.h>
 # include <errno.h>
 
-# define TEX_WIDTH 64
 # define TEX_HEIGHT 64
-# define SCREEN_H 1200
-# define SCREEN_W 1200
+# define TEX_WIDTH 64
+# define SCREEN_H 720
+# define SCREEN_W 1280
 
 typedef struct s_vec2
 {
@@ -42,6 +42,7 @@ typedef struct s_view
 	double			pos_x;
 	double			pos_y;
 	double			buff_dist;
+	double			aspect_ratio;
 	int				step_x;
 	int				step_y;
 }					t_view;

@@ -2,7 +2,7 @@ NAME := cub3D
 CC := cc
 FRAMEWORKS := -lglfw -framework Cocoa -framework OpenGL -framework IOKit
 
-FLAGS := -Wall -Wextra -Werror -g #-fsanitize=address
+FLAGS := -Wall -Wextra -Werror -Ofast -g #-fsanitize=address
 
 INCLUDE := -Iincludes -Imlx
 

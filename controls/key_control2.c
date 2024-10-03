@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_control2.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:51:24 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/03 18:36:29 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/04 01:40:34 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,60 @@ void	case_esc(t_game *game)
 
 void	case_key_back(t_game *game, double mv_speed)
 {
-    double next_pos_x = game->view->pos_x - game->view->dir_x * (mv_speed + game->view->buff_dist);
-    double next_pos_y = game->view->pos_y - game->view->dir_y * (mv_speed + game->view->buff_dist);
+	double	next_pos_x;
+	double	next_pos_y;
 
-    if (game->map->map[(int)next_pos_x][(int)game->view->pos_y] == '0')
-        game->view->pos_x -= game->view->dir_x * mv_speed;
-    if (game->map->map[(int)game->view->pos_x][(int)next_pos_y] == '0')
-        game->view->pos_y -= game->view->dir_y * mv_speed;
+	next_pos_x = (game->view->pos_x - game->view->dir_x
+			* (mv_speed + game->view->buff_dist));
+	next_pos_y = (game->view->pos_y - game->view->dir_y
+			* (mv_speed + game->view->buff_dist));
+	if (game->map->map[(int)game->view->pos_y][(int)next_pos_x] != '1')
+		game->view->pos_x -= game->view->dir_x * mv_speed;
+	if (game->map->map[(int)next_pos_y][(int)game->view->pos_x] != '1')
+		game->view->pos_y -= game->view->dir_y * mv_speed;
 }
 
 void	case_key_forward(t_game *game, double mv_speed)
 {
-    double next_pos_x = game->view->pos_x + game->view->dir_x * (mv_speed + game->view->buff_dist);
-    double next_pos_y = game->view->pos_y + game->view->dir_y * (mv_speed + game->view->buff_dist);
+	double	next_pos_x;
+	double	next_pos_y;
 
-    if (game->map->map[(int)next_pos_x][(int)game->view->pos_y] == '0')
-        game->view->pos_x += game->view->dir_x * mv_speed;
-    if (game->map->map[(int)game->view->pos_x][(int)next_pos_y] == '0')
-        game->view->pos_y += game->view->dir_y * mv_speed;
+	next_pos_x = (game->view->pos_x + game->view->dir_x
+			* (mv_speed + game->view->buff_dist));
+	next_pos_y = (game->view->pos_y + game->view->dir_y
+			* (mv_speed + game->view->buff_dist));
+	if (game->map->map[(int)game->view->pos_y][(int)next_pos_x] != '1')
+		game->view->pos_x += game->view->dir_x * mv_speed;
+	if (game->map->map[(int)next_pos_y][(int)game->view->pos_x] != '1')
+		game->view->pos_y += game->view->dir_y * mv_speed;
 }
 
 void	case_key_right(t_game *game, double mv_speed)
 {
-    double next_pos_x = game->view->pos_x + game->view->cam_x * (mv_speed + game->view->buff_dist);
-    double next_pos_y = game->view->pos_y + game->view->cam_y * (mv_speed + game->view->buff_dist);
+	double	next_pos_x;
+	double	next_pos_y;
 
-    if (game->map->map[(int)next_pos_x][(int)game->view->pos_y] == '0')
-        game->view->pos_x += game->view->cam_x * mv_speed;
-    if (game->map->map[(int)game->view->pos_x][(int)next_pos_y] == '0')
-        game->view->pos_y += game->view->cam_y * mv_speed;
+	next_pos_x = (game->view->pos_x + game->view->cam_x
+			* (mv_speed + game->view->buff_dist));
+	next_pos_y = (game->view->pos_y + game->view->cam_y
+			* (mv_speed + game->view->buff_dist));
+	if (game->map->map[(int)game->view->pos_y][(int)next_pos_x] != '1')
+		game->view->pos_x += game->view->cam_x * mv_speed;
+	if (game->map->map[(int)next_pos_y][(int)game->view->pos_x] != '1')
+		game->view->pos_y += game->view->cam_y * mv_speed;
 }
 
 void	case_key_left(t_game *game, double mv_speed)
 {
-    double next_pos_x = game->view->pos_x - game->view->cam_x * (mv_speed + game->view->buff_dist);
-    double next_pos_y = game->view->pos_y - game->view->cam_y * (mv_speed + game->view->buff_dist);
+	double	next_pos_x;
+	double	next_pos_y;
 
-    if (game->map->map[(int)next_pos_x][(int)game->view->pos_y] == '0')
-        game->view->pos_x -= game->view->cam_x * mv_speed;
-    if (game->map->map[(int)game->view->pos_x][(int)next_pos_y] == '0')
-        game->view->pos_y -= game->view->cam_y * mv_speed;
+	next_pos_x = (game->view->pos_x - game->view->cam_x
+			* (mv_speed + game->view->buff_dist));
+	next_pos_y = (game->view->pos_y - game->view->cam_y
+			* (mv_speed + game->view->buff_dist));
+	if (game->map->map[(int)game->view->pos_y][(int)next_pos_x] != '1')
+		game->view->pos_x -= game->view->cam_x * mv_speed;
+	if (game->map->map[(int)next_pos_y][(int)game->view->pos_x] != '1')
+		game->view->pos_y -= game->view->cam_y * mv_speed;
 }

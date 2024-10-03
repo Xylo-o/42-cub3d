@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast3.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/24 16:18:32 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/09/26 15:51:33 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/04 00:14:37 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ int	calculate_draw_end(int wall_height)
 {
 	int	draw_end;
 
-	draw_end = 0;
 	draw_end = wall_height / 2 + SCREEN_H / 2;
 	if (draw_end >= SCREEN_H)
 		draw_end = SCREEN_H - 1;
@@ -27,7 +26,6 @@ int	calculate_draw_start(int wall_height)
 {
 	int	draw_start;
 
-	draw_start = 0;
 	draw_start = -wall_height / 2 + SCREEN_H / 2;
 	if (draw_start < 0)
 		draw_start = 0;
@@ -50,7 +48,7 @@ void	calculate_hit(t_game *game)
 			game->map->map_y += game->view->step_y;
 			game->map->side = 1;
 		}
-		if (game->map->map[game->map->map_x][game->map->map_y] != '0')
+		if (game->map->map[game->map->map_y][game->map->map_x] == '1')
 			game->map->hit = 1;
 	}
 }

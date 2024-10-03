@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
+/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/03 18:37:35 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/03 20:03:59 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	init_view(t_view *view)
 	view->step_x = 0;
 	view->step_y = 0;
 	view->buff_dist = 0.25;
+	view->aspect_ratio = (double)SCREEN_W / (double)SCREEN_H;
 }
 
 void	init_map(t_map *map)
