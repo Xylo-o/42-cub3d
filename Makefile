@@ -37,10 +37,8 @@ all: $(LIBFT) $(MLX_LIB) $(NAME)
 
 bonus: all
 
-start_compile:
-	@echo "$(BLUE)Compiling...$(NC)"
-
 $(NAME) : $(OBJ)
+	@echo "$(BLUE)Compiling...$(NC)"
 	@$(CC) $(FLAGS) $(INCLUDE) $(LIBFT) $(MLX_LIB) $^ $(FRAMEWORKS) -o $@
 	@echo "$(GREEN)Compiled successfully$(NC)"
 
@@ -48,9 +46,12 @@ $(LIBFT):
 	@$(MAKE) -C Libft
 
 $(MLX_LIB):
-	@git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX)
-	@cmake $(LIBMLX) -B $(LIBMLX)/build
-	@cmake --build $(LIBMLX)/build -j4
+	@echo "$(BLUE)Creating MLX42...$(NC)"
+	@git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX) > /dev/null 2>&1
+	@cd MLX42 && git checkout 4c275721d0de1a9c514c857c29e9dd235d874591 > /dev/null 2>&1 && cd ..
+	@cmake $(LIBMLX) -B $(LIBMLX)/build > /dev/null 2>&1
+	@cmake --build $(LIBMLX)/build -j4 > /dev/null 2>&1
+	@echo "$(GREEN)MLX42 creation successful$(NC)"
 
 clean :
 	@$(MAKE) -C Libft clean
