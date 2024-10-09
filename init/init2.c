@@ -6,11 +6,25 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:04:42 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/04 01:49:48 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/09 02:14:11 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3D.h"
+
+void	init_game_struct(t_game *game)
+{
+	game->mlx = NULL;
+	game->buffer = NULL;
+	game->map = NULL;
+	game->view = NULL;
+	game->ray = NULL;
+	game->textures = NULL;
+	game->my_error = NULL;
+	game->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
+	if (!game->mlx)
+		quit_error();
+}
 
 void	spawn_player(t_game *game)
 {

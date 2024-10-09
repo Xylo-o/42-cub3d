@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/03 20:03:59 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/09 02:17:34 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,10 +68,7 @@ void	init(t_game *game)
 {
 	if (!game)
 		terminate(game);
-	game->my_error = NULL;
-	game->mlx = mlx_init(SCREEN_W, SCREEN_H, "cub3D", false);
-	if (!game->mlx)
-		terminate(game);
+	init_game_struct(game);
 	game->buffer = mlx_new_image(game->mlx, SCREEN_W, SCREEN_H);
 	if (!game->buffer)
 		terminate(game);

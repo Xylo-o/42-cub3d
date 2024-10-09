@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/10/04 01:30:42 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/09 02:38:08 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,9 +137,9 @@ char				**copy_map(char **map);
 //TERMINATE
 void				terminate(t_game *game);
 void				free_array(char **str);
-void				free_game(t_game *game);
 void				free_textures(t_game *game);
 void				free_up(t_game *game);
+void				quit_error(void);
 
 // INIT
 void				init_view(t_view *view);
@@ -147,6 +147,7 @@ void				init_ray(t_ray *ray);
 void				init_map(t_map *map);
 void				init_textures(t_textures *textures);
 void				init(t_game *game);
+void				init_game_struct(t_game *game);
 void				spawn_player(t_game *game);
 
 // RENDER
