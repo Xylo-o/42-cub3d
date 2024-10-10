@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_texture.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:13 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/26 17:00:22 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/10 15:17:34 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ void	check_textures(t_game *game, char *line)
 		free(line);
 		terminate(game);
 	}
-	if (line[0] == 'N')
+	if (!ft_strncmp(line, "NO ", 3))
 		create_texture(game, path, &game->textures->no_texture);
-	else if (line[0] == 'S')
+	else if (!ft_strncmp(line, "SO ", 3))
 		create_texture(game, path, &game->textures->so_texture);
-	else if (line[0] == 'E')
+	else if (!ft_strncmp(line, "EA ", 3))
 		create_texture(game, path, &game->textures->ea_texture);
-	else if (line[0] == 'W')
+	else if (!ft_strncmp(line, "WE ", 3))
 		create_texture(game, path, &game->textures->we_texture);
 }

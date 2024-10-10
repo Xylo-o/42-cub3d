@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:04:42 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/10 14:04:01 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:54:22 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,19 @@ void	spawn_player(t_game *game)
 
 void	spawn_pos_w_e(t_game *game)
 {
-	if (game->map->start_orientation == 'W')
+	if (game->map->start_orientation == 'E')
 	{
-		game->view->dir_x = 0;
-		game->view->dir_y = -1;
-		game->view->cam_x = 0.66;
-		game->view->cam_y = 0;
+		game->view->dir_x = 1;
+		game->view->dir_y = 0;
+		game->view->cam_x = 0;
+		game->view->cam_y = 0.66;
 	}
-	else if (game->map->start_orientation == 'E')
+	else if (game->map->start_orientation == 'W')
 	{
-		game->view->dir_x = 0;
-		game->view->dir_y = 1;
-		game->view->cam_x = -0.66;
-		game->view->cam_y = 0;
+		game->view->dir_x = -1;
+		game->view->dir_y = 0;
+		game->view->cam_x = 0;
+		game->view->cam_y = -0.66;
 	}
 }
 
@@ -60,16 +60,16 @@ void	spawn_pos_n_s(t_game *game)
 {
 	if (game->map->start_orientation == 'N')
 	{
-		game->view->dir_x = 1;
-		game->view->dir_y = 0;
-		game->view->cam_x = 0;
-		game->view->cam_y = 0.66;
+		game->view->dir_x = 0;
+		game->view->dir_y = -1;
+		game->view->cam_x = 0.66;
+		game->view->cam_y = 0;
 	}
 	else if (game->map->start_orientation == 'S')
 	{
-		game->view->dir_x = -1;
-		game->view->dir_y = 0;
-		game->view->cam_x = 0;
-		game->view->cam_y = -0.66;
+		game->view->dir_x = 0;
+		game->view->dir_y = 1;
+		game->view->cam_x = -0.66;
+		game->view->cam_y = 0;
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycast1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:44:28 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/04 01:32:18 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/10 15:20:50 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ void	draw_walls(t_game *game, int x, int draw_end,
 void	choose_texture(t_game *game)
 {
 	if (game->map->side == 0 && game->ray->dir_x > 0)
-		game->textures->tmp = game->textures->no_texture;
-	else if (game->map->side == 0 && game->ray->dir_x < 0)
-		game->textures->tmp = game->textures->so_texture;
-	else if (game->map->side == 1 && game->ray->dir_y > 0)
 		game->textures->tmp = game->textures->ea_texture;
-	else
+	else if (game->map->side == 0 && game->ray->dir_x < 0)
 		game->textures->tmp = game->textures->we_texture;
+	else if (game->map->side == 1 && game->ray->dir_y > 0)
+		game->textures->tmp = game->textures->so_texture;
+	else
+		game->textures->tmp = game->textures->no_texture;
 }
 
 void	check_if_side(t_game *game)
