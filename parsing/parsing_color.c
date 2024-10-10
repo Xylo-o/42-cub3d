@@ -6,7 +6,7 @@
 /*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/09 16:28:11 by sgeiger           #+#    #+#             */
-/*   Updated: 2024/09/27 00:02:24 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/10 20:34:50 by sgeiger          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,12 @@ int	check_number(t_game *game, char *line, int i, int start)
 	char	*str_nbr;
 	int		status;
 
+	if (start == i)
+	{
+		free(line);
+		game->my_error = "Color does not match pattern: 'C/F r,g,b'";
+		terminate(game);
+	}
 	str_nbr = ft_substr(line, start, i - start);
 	if (!str_nbr)
 		terminate(game);
