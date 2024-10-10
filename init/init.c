@@ -6,7 +6,7 @@
 /*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/20 14:45:07 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/10 13:55:37 by adprzyby         ###   ########.fr       */
+/*   Updated: 2024/10/10 14:09:54 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	init_view(t_view *view)
 	if (!view)
 		return ;
 	view->cam_x = 0;
-	view->cam_y = 0.75;
+	view->cam_y = 0.55;
 	view->step_x = 0;
 	view->step_y = 0;
 	view->buff_dist = 0.25;

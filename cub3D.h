@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3D.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:25:34 by cpuiu             #+#    #+#             */
-/*   Updated: 2024/10/09 02:38:08 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/10 14:04:17 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,8 @@ void				init_textures(t_textures *textures);
 void				init(t_game *game);
 void				init_game_struct(t_game *game);
 void				spawn_player(t_game *game);
+void				spawn_pos_w_e(t_game *game);
+void				spawn_pos_n_s(t_game *game);
 
 // RENDER
 void				render_structures(t_game *game);

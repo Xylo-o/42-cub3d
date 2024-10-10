@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: sgeiger <sgeiger@student.42heilbronn.de    +#+  +:+       +#+        */
+/*   By: adprzyby <adprzyby@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/28 19:04:42 by adprzyby          #+#    #+#             */
-/*   Updated: 2024/10/09 02:14:11 by sgeiger          ###   ########.fr       */
+/*   Updated: 2024/10/10 14:04:01 by adprzyby         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ void	init_game_struct(t_game *game)
 
 void	spawn_player(t_game *game)
 {
+	if (game->map->start_orientation == 'W'
+		|| game->map->start_orientation == 'E')
+		spawn_pos_w_e(game);
+	else if (game->map->start_orientation == 'N'
+		|| game->map->start_orientation == 'S')
+		spawn_pos_n_s(game);
+	game->view->pos_x = game->map->start_pos.x + 0.5;
+	game->view->pos_y = game->map->start_pos.y + 0.5;
+}
+
+void	spawn_pos_w_e(t_game *game)
+{
 	if (game->map->start_orientation == 'W')
 	{
 		game->view->dir_x = 0;
@@ -42,7 +54,11 @@ void	spawn_player(t_game *game)
 		game->view->cam_x = -0.66;
 		game->view->cam_y = 0;
 	}
-	else if (game->map->start_orientation == 'N')
+}
+
+void	spawn_pos_n_s(t_game *game)
+{
+	if (game->map->start_orientation == 'N')
 	{
 		game->view->dir_x = 1;
 		game->view->dir_y = 0;
@@ -56,6 +72,4 @@ void	spawn_player(t_game *game)
 		game->view->cam_x = 0;
 		game->view->cam_y = -0.66;
 	}
-	game->view->pos_x = game->map->start_pos.x + 0.5;
-	game->view->pos_y = game->map->start_pos.y + 0.5;
 }
